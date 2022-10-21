@@ -56,9 +56,6 @@ function renderAllRecipes(data) {
   `<section class="recipe-card">
     <h3 class="" id="recipe-title">Recipe Title</h3>
     <img url="">
-    <div class="">
-      ${recipeTags}
-    </div>
   </section>`;
 }
 
