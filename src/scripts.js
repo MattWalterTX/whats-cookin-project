@@ -48,10 +48,16 @@ function instantiateData() {
 // Query Selectors!!!
 const allRecipesGrid = document.querySelector('#all-card-grid');
 const favoriteRecipesGrid = document.querySelector('#favorite-grid');
-const greeting = document.querySelector('#greeting');
+const greeting = document.querySelector('.home-view');
+const allRecipes = document.querySelectorAll('.recipe-card')
+const fullGrid = document.querySelector('.all-recipe-grid')
+const savedRecipesGrid = document.querySelector('.saved-recipe-grid')
+const singleRecipe = document.querySelector('.single-recipe')
+
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
+fullGrid.addEventListener('click', showRecipe())
 
 // Functions
 function loadUser() {
@@ -73,7 +79,7 @@ function renderAllRecipes(data) {
   (allRecipesGrid).innerHTML = 
     data.map(recipe => `<li class="recipe-card">
       <span class="" id="recipe-title">${recipe.name}</h3>
-      <img url="${recipe.image}">
+      <img src="${recipe.image}">
       <div class="">
         ${recipe.tags}
       </div>
@@ -86,7 +92,7 @@ function renderAllRecipes(data) {
 // invoke with handler on click
 function showRecipe() {
   greeting.classList.add('hidden')
-  allRecipesGrid.classList.add('hidden');
+  fullGrid.classList.add('hidden');
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.remove('hidden');
 }
