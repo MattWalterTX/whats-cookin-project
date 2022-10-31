@@ -50,5 +50,5 @@
   - [Evan Swanson](https://github.com/EvanSSwanson)
 
 ## Project Specs
-  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/whats-cookin-part-one.html)
+  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/whats-cookin-part-one.html) for part one and [here] (https://frontend.turing.edu/projects/whats-cookin-part-two.html) for part two
  
