@@ -7,8 +7,6 @@ import Recipe from './classes/Recipe.js';
 import RecipeRepository from './classes/RecipeRepository.js';
 import User from './classes/User.js';
 
-
-
 // Declare variables for linked methods compatibility
 let usersData;
 let ingredientsData;
@@ -20,6 +18,7 @@ let recipeCards;
 function makeAllHidden() {
   recipeGrid.classList.toggle('hidden');
 }
+
 // Declare function to instantiate all of our data to dashboard on load/ refresh.
 function instantiateData() {
   Promise.all([
