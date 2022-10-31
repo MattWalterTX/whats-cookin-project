@@ -21,7 +21,7 @@ class Recipe {
   returnIngredientCost(ingredientData) {
     const cost = () => {
       const reduced = this.ingredients.reduce((acc, ing) => {
-        ingredientData.forEach(data => {
+        ingredientData.map(data => {
           if(ing.id === data.id) {
             acc += ing.quantity.amount * data.estimatedCostInCents
           };
@@ -35,7 +35,7 @@ class Recipe {
 
   returnInstructions() {
     let steps = [];
-    this.instructions.forEach(currentInstruction => {
+    this.instructions.map(currentInstruction => {
       steps.push(`Step ${currentInstruction.number}: ${currentInstruction.instruction}`)
     });
     return steps
