@@ -1,7 +1,7 @@
-# `yourNameHere` (Project name)
+# What's Cookin'?!
 
 ## Abstract
-  - add a lil ditty about the project here
+  - What's Cookin'?! is an application interface that allows you to browse various recipes. 
 
 ## Technologies
 - ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
@@ -11,24 +11,21 @@
 - ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 - ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
 
-## Illustrations
-  `Screenshots or gifs`
-
 ## Features
--
--
+- The user is randomly generated each load and may look through the recipes, inspect an individual recipes details and serach for a recipe by name or tag.
 
 ## Possible Future Extensions
--
--
+- First is the missed tech to add, remove and view recipes to cook.
+- We would like to expand our search option to include multiple tags and words.
+- Possible integration of a 3rd party library to allow reordering of our list of recipes.
 
-## Milestones
--
--
-
-## Challenges 
--
--
+## Learning Goals
+- Implement ES6 classes that communicate to each other as needed
+- Use object and array prototype methods to perform data manipulation
+- Create a user interface that is easy to use and clearly displays information
+- Write modular, reusable code that follows SRP (Single Responsibility Principle)
+- Implement a robust testing suite using TDD
+- Make network requests to retrieve data
 
 ### Set Up
 1. Clone the repo
@@ -53,5 +50,5 @@
   - [Evan Swanson](https://github.com/EvanSSwanson)
 
 ## Project Specs
-  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/whats-cookin-part-one.html)
+  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/whats-cookin-part-one.html) for part one and [here](https://frontend.turing.edu/projects/whats-cookin-part-two.html) for part two
  

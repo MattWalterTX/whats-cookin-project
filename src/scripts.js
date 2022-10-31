@@ -84,6 +84,7 @@ function renderAllRecipes(data) {
 }
 
 function filterRecipe() {
+
   const recipeSearch = searchBar.value;
   const filteredRecipes = newRecipeRepo.filterByName(recipeSearch);
   renderAllRecipes(filteredRecipes);

@@ -30,4 +30,13 @@ describe('RecipeRepository', () => {
     expect(recipeRepo.filterByName('SaUCe').length).to.equal(1)
     expect(recipeRepo.filterByName('PORK chop').length).to.equal(1)
   })
+  it('Should not return a recipe that does not exist', () => {
+    const recipeRepo = new RecipeRepository(recipesList)
+    expect(recipeRepo.filterByName('taco').length).to.equal(0)
+    expect(recipeRepo.filterByName('lemon cake').length).to.equal(0)
+  })
+  it('Should not return any recipe if the search is blank', () => {
+    const recipeRepo = new RecipeRepository(recipesList)
+    expect(recipeRepo.filterByName('').length).to.equal(0)
+  })
 })
