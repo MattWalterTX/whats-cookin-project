@@ -84,11 +84,8 @@ function renderAllRecipes(data) {
 }
 
 function filterRecipe() {
-  const recipeSearch = searchBar.value.toLowerCase();
-  const filteredRecipes = recipeCards.filter(recipe => {
-    return recipe.name.toLowerCase().includes(recipeSearch) || recipe.tags.includes(recipeSearch)
-  });
-  console.log(filteredRecipes);
+  const recipeSearch = searchBar.value;
+  const filteredRecipes = newRecipeRepo.filterByName(recipeSearch);
   renderAllRecipes(filteredRecipes);
 }
 
