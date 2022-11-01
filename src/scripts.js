@@ -41,28 +41,29 @@ function instantiateData() {
   })
 }
 
+
 // Query Selectors
 const allRecipesGrid = document.querySelector('#all-card-grid');
+const favoriteRecipesGrid = document.querySelector('#fave-card-grid');
 const greeting = document.querySelector('#greeting');
 const homeView = document.querySelector('.home-view');
+const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
-const savedRecipesGrid = document.querySelector('.save-view');
+const homeNavButton = document.querySelector('.home-button')
+const favoritesNavButton = document.querySelector('.saved-button')
 const searchBar = document.querySelector('.search-bar');
-const favoriteRecipes = document.querySelector('#fave-card-grid');
-const favoriteButton = document.querySelector('#favorite-button');
 
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 searchBar.addEventListener('keyup', filterRecipe);
-favoriteButton.addEventListener('click', addToFavorites);
-
+favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
+homeNavButton.addEventListener('click', viewHome)
 
 // Functions
 function loadUser() {
   renderUser(currentUser);
-  // renderIngredientsData();
   renderAllRecipes(recipeCards);
 }
 
@@ -73,18 +74,32 @@ function renderUser(user) {
 
 function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = '';
-  allRecipesGrid.innerHTML = 
-    data.map(recipe => `<li class="recipe-card">
-      <h3> class="" id="recipe-title">${recipe.name}</h3>
+    data.map(recipe => {
+      allRecipesGrid.innerHTML +=
+      `<li class="recipe-card">
+      <h3 class="" id="recipe-title">${recipe.name}</h3>
       <img id="${recipe.id}" src="${recipe.image}">
       <div class="">
         ${recipe.tags}
       </div>
-    </li>`).join('');
+    </li>`}).join('');
+}
+
+function renderFavoriteRecipes(data) {
+  console.log(data)
+  favoriteRecipesGrid.innerHTML = '';
+  data.map(recipe => {
+    favoriteRecipesGrid.innerHTML +=
+    `<li class="recipe-card">
+    <h3 class="" id="recipe-title">${recipe.name}</h3>
+    <img id="${recipe.id}" src="${recipe.image}">
+    <div class="">
+      ${recipe.tags}
+    </div>
+    </li>`}).join('');
 }
 
 function filterRecipe() {
-
   const recipeSearch = searchBar.value;
   const filteredRecipes = newRecipeRepo.filterByName(recipeSearch);
   renderAllRecipes(filteredRecipes);
@@ -93,7 +108,7 @@ function filterRecipe() {
 function showRecipe(event) {
   greeting.classList.add('hidden');
   homeView.classList.add('hidden');
-  savedRecipesGrid.classList.add('hidden');
+  savedRecipesView.classList.add('hidden');
   singleRecipe.classList.remove('hidden');
 
   const recipe = newRecipeRepo.recipes.find(recipe => {
@@ -110,7 +125,7 @@ function showRecipe(event) {
   singleRecipe.innerHTML = 
     `<img src="${recipe.image}"></img>
     <h2 class="single-recipe-name">${recipe.name}</h2>
-    <button id="${recipe.id}">Add to Favorites</button>
+    <button class="favorite-button" id="${recipe.id}">Add to Favorites</button>
     <section class="single-recipe-contents">
       <section>
         <div>Ingredients List</div>
@@ -121,10 +136,34 @@ function showRecipe(event) {
         <ol>${instructions.join('')}</ol>
       </section>
     </section>`;
+  const favoriteButton = document.querySelector('.favorite-button');
+  favoriteButton.addEventListener('click', addToFavorites);
 }
 
-function addToFavorites() {
+function addToFavorites(event) {
+  let favoritedRecipe = newRecipeRepo.recipes.filter(recipe => {
+    if (recipe.id === parseInt(event.target.id)) {
+      return recipe
+    }
+  })
+  currentUser.addToCookList(favoritedRecipe)
+  console.log(currentUser)
 
+}
+
+function viewFavoriteRecipes() {
+  greeting.classList.add('hidden');
+  homeView.classList.add('hidden');
+  singleRecipe.classList.add('hidden');
+  savedRecipesView.classList.remove('hidden');
+  renderFavoriteRecipes(currentUser.recipesToCook)
+}
+
+function viewHome() {
+  greeting.classList.remove('hidden');
+  homeView.classList.remove('hidden');
+  singleRecipe.classList.add('hidden');
+  savedRecipesView.classList.add('hidden');
 }
 
 
