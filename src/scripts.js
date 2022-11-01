@@ -91,7 +91,6 @@ function filterRecipe() {
 }
 
 function showRecipe(event) {
-  greeting.classList.add('hidden');
   homeView.classList.add('hidden');
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.remove('hidden');
