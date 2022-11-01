@@ -50,13 +50,14 @@ const savedRecipesGrid = document.querySelector('.save-view');
 const searchBar = document.querySelector('.search-bar');
 const favoriteRecipes = document.querySelector('#fave-card-grid');
 const favoriteButton = document.querySelector('#favorite-button');
-
+const homeButton = document.querySelector('#buttonOfHome');
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 searchBar.addEventListener('keyup', filterRecipe);
-favoriteButton.addEventListener('click', addToFavorites);
+// favoriteButton.addEventListener('click', addToFavorites);
+homeButton.addEventListener('click', showAllRecipes);
 
 
 // Functions
@@ -137,3 +138,10 @@ function addToFavorites() {
 
 // As a user, I should be able to search recipes by their name. (Extension option: by name or ingredients)
 // searchbar should have a handler to search all recipes and filter by entered/ selected name OR tag
+
+function showAllRecipes() {
+  savedRecipesGrid.classList.add('hidden');
+  singleRecipe.classList.add('hidden');
+  homeView.classList.remove('hidden');
+  renderAllRecipes(recipeData);
+}
