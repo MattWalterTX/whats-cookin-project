@@ -115,6 +115,8 @@ function showRecipe(event) {
       <section>
         <div>Ingredients List</div>
         ${ingredients.join('')}
+        <div>Total Cost</div>
+        ${recipe.returnIngredientCost(ingredientsData)}
       </section>
       <section> 
         <div>Instructions</div>
