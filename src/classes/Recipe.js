@@ -8,30 +8,28 @@ class Recipe {
     this.tags = recipe.tags;
   };
 
-  returnIngredientNames(ingredientData) {
-    const currentId = this.ingredients.map(ingredient => {
-      return ingredient.id
-    });
-    const relevantIngredients = ingredientData.filter(ingredient => currentId.includes(ingredient.id));
-    const names = [];
-    relevantIngredients.forEach(ingredient => names.push(ingredient.name));
-    return names
+     returnIngredientNames(ingredientData) {
+        return this.ingredients.reduce((acc, ing) => {
+          ingredientData.map(data => {
+            if(ing.id === data.id) {
+              acc.push(data.name)
+            };
+          });
+          return acc;
+        }, []);
   };
 
-  returnIngredientCost(ingredientData) {
-    const cost = () => {
-      const reduced = this.ingredients.reduce((acc, ing) => {
-        ingredientData.map(data => {
-          if(ing.id === data.id) {
-            acc += ing.quantity.amount * data.estimatedCostInCents
-          };
-        });
-        return acc
-      }, 0);
-      return reduced
+    returnIngredientCost(ingredientData) {
+        const cost = this.ingredients.reduce((acc, ing) => {
+            ingredientData.map(data => {
+              if(ing.id === data.id) {
+                acc += ing.quantity.amount * data.estimatedCostInCents
+              };
+            });
+            return acc
+          }, 0);
+          return (Math.round((cost / 100) * 100) / 100).toFixed(2);
     };
-    return cost()
-  };
 
   returnInstructions() {
     let steps = [];
@@ -41,6 +39,5 @@ class Recipe {
     return steps
   };
 };
-
 
 export default Recipe
