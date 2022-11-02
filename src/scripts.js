@@ -29,14 +29,6 @@ function instantiateData() {
       usersData = data[0].usersData;
       ingredientsData = data[1].ingredientsData;
       recipeData = data[2].recipeData;
-      currentUser = new User(
-        usersData[Math.floor(Math.random() * usersData.length)]
-      );
-      recipeCards = recipeData.map(recipe => {
-        const newCard = new Recipe (recipe);
-        return newCard
-      });
-      newRecipeRepo = new RecipeRepository (recipeCards);
       loadUser();
   })
 }
@@ -49,23 +41,28 @@ const greeting = document.querySelector('#greeting');
 const homeView = document.querySelector('.home-view');
 const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
-const homeNavButton = document.querySelector('.home-button')
 const favoritesNavButton = document.querySelector('.saved-button')
 const searchBar = document.querySelector('.search-bar');
-const favoriteRecipes = document.querySelector('#fave-card-grid');
-const favoriteButton = document.querySelector('#favorite-button');
 const homeButton = document.querySelector('#buttonOfHome');
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 searchBar.addEventListener('keyup', filterRecipe);
-// favoriteButton.addEventListener('click', addToFavorites);
 homeButton.addEventListener('click', showAllRecipes);
+favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
 
 
 // Functions
 function loadUser() {
+  currentUser = new User(
+    usersData[Math.floor(Math.random() * usersData.length)]
+  );
+  recipeCards = recipeData.map(recipe => {
+    const newCard = new Recipe (recipe);
+    return newCard
+  });
+  newRecipeRepo = new RecipeRepository (recipeCards);
   renderUser(currentUser);
   renderAllRecipes(recipeCards);
 }
@@ -79,7 +76,7 @@ function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = '';
   allRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
-      <h3> class="" id="recipe-title">${recipe.name}</h3>
+      <h3 class="" id="recipe-title">${recipe.name}</h3>
       <img id="${recipe.id}" src="${recipe.image}">
       <div class="">
         ${recipe.tags}
@@ -88,17 +85,15 @@ function renderAllRecipes(data) {
 }
 
 function renderFavoriteRecipes(data) {
-  console.log(data)
   favoriteRecipesGrid.innerHTML = '';
-  data.map(recipe => {
-    favoriteRecipesGrid.innerHTML +=
-    `<li class="recipe-card">
+  favoriteRecipesGrid.innerHTML = 
+  data.recipesToCook.map(recipe => `<li class="recipe-card">
     <h3 class="" id="recipe-title">${recipe.name}</h3>
     <img id="${recipe.id}" src="${recipe.image}">
     <div class="">
       ${recipe.tags}
     </div>
-    </li>`}).join('');
+  </li>`).join('');
 }
 
 function filterRecipe() {
@@ -144,14 +139,13 @@ function showRecipe(event) {
 }
 
 function addToFavorites(event) {
-  let favoritedRecipe = newRecipeRepo.recipes.filter(recipe => {
+  let favoritedRecipe = newRecipeRepo.recipes.find(recipe => {
     if (recipe.id === parseInt(event.target.id)) {
       return recipe
     }
   })
   currentUser.addToCookList(favoritedRecipe)
   console.log(currentUser)
-
 }
 
 function viewFavoriteRecipes() {
@@ -159,14 +153,7 @@ function viewFavoriteRecipes() {
   homeView.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   savedRecipesView.classList.remove('hidden');
-  renderFavoriteRecipes(currentUser.recipesToCook)
-}
-
-function viewHome() {
-  greeting.classList.remove('hidden');
-  homeView.classList.remove('hidden');
-  singleRecipe.classList.add('hidden');
-  savedRecipesView.classList.add('hidden');
+  renderFavoriteRecipes(currentUser)
 }
 
 
@@ -180,7 +167,7 @@ function viewHome() {
 // searchbar should have a handler to search all recipes and filter by entered/ selected name OR tag
 
 function showAllRecipes() {
-  savedRecipesGrid.classList.add('hidden');
+  savedRecipesView.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   homeView.classList.remove('hidden');
   renderAllRecipes(recipeData);
