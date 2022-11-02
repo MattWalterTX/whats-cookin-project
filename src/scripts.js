@@ -108,12 +108,17 @@ function renderFavoriteRecipes(data) {
 
 function renderPantry() {
   const render = currentUser.pantry.map(ing => {
-    let newing = ingredientsData.find(i => i.id === ing.ingredient);
+    let newIng = ingredientsData.find(i => i.id === ing.ingredient);
+    let recMatch = recipeData.find(recipe => recipe.ingredients.find(z => z.id === ing.ingredient));
+    let newUnit = recMatch.ingredients.find(ingred => ingred.id === ing.ingredient)
+    console.log('newUnit: ', newUnit);
+
     const newObj = {
-    name: (newing && newing.name) || "Undefined",
-    amount: ing.amount
+      name: (newIng && newIng.name) || "Undefined",
+      amount: ing.amount,
+      units: newUnit.quantity.unit
     }
-    return `<ul>${newObj.name} ${newObj.amount}</ul>`
+    return `<ul>${newObj.name} ${newObj.amount} ${newObj.units}</ul>`
   });
   pantryList.innerHTML = '';
   pantryList.innerHTML = 
