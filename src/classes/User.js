@@ -15,9 +15,16 @@ class User {
         return this.recipesToCook.filter(recipe => recipe.tags.includes(tag));
     };
 
-    filterByName(name) {
-        return this.recipesToCook.filter(recipe => recipe.name.includes(name));
-    };
+    filterByName = (name) => {
+        const filteredList = this.recipesToCook.filter(recipe => {
+          let lowerCaseRecipeName = recipe.name.toLowerCase()
+          if(name !== ' ' && lowerCaseRecipeName.includes(name.toLowerCase())) {
+            return recipe
+          }
+        })
+        console.log(filteredList)
+        return filteredList
+      }
 
     addToPantry(ingredient) {
         //NOTICE! this.pantry stores the ingredients in this format:

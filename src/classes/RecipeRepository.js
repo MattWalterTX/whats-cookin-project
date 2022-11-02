@@ -16,7 +16,7 @@ class RecipeRepository {
   filterByName = (name) => {
     const filteredList = this.recipes.filter(recipe => {
       let lowerCaseRecipeName = recipe.name.toLowerCase()
-      if(name !== ' ' && name !== '' && lowerCaseRecipeName.includes(name.toLowerCase())) {
+      if(name !== ' ' && lowerCaseRecipeName.includes(name.toLowerCase())) {
         return recipe
       }
     })
