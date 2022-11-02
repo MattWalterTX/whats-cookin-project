@@ -41,6 +41,7 @@ const greeting = document.querySelector('#greeting');
 const homeView = document.querySelector('.home-view');
 const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
+
 const favoritesNavButton = document.querySelector('.saved-button')
 const savedRecipesGrid = document.querySelector('.save-view');
 const pantryView = document.querySelector('.pantry-view');
@@ -87,10 +88,10 @@ function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
       <h3 class="" id="recipe-title">${recipe.name}</h3>
-      <img id="${recipe.id}" src="${recipe.image}">
-      <div class="">
+      <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+      <h3 class="recipe-tags-all">
         ${recipe.tags}
-      </div>
+      </h3>
     </li>`).join('');
 }
 
@@ -186,6 +187,13 @@ function viewFavoriteRecipes() {
   savedRecipesView.classList.remove('hidden');
   renderFavoriteRecipes(currentUser)
 }
+
+function returnHome() {
+  greeting.classList.toggle('hidden');
+  homeView.classList.toggle('hidden');
+  savedRecipesGrid.classList.toggle('hidden');
+  singleRecipe.classList.toggle('hidden');
+};
 
 
 // As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
