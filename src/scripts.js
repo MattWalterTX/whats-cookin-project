@@ -94,13 +94,11 @@ function renderPantry() {
   const render = currentUser.pantry.map(ing => {
     let newing = ingredientsData.find(i => i.id === ing.ingredient);
     const newObj = {
-    item: (newing && newing.name) || "Undefined",
+    name: (newing && newing.name) || "Undefined",
     amount: ing.amount
     }
-    return newObj  
+    return `<ul>${newObj.name} ${newObj.amount}</ul>`
   });
-  console.log(render)
-  
   pantryList.innerHTML = '';
   pantryList.innerHTML = 
     `${render.join('')}`
