@@ -1,14 +1,14 @@
 class Recipe {
-    constructor(recipe) {
-        this.id = recipe.id;
-        this.image = recipe.image;
-        this.ingredients = recipe.ingredients;
-        this.instructions = recipe.instructions;
-        this.name = recipe.name;
-        this.tags = recipe.tags;
-    };
+  constructor(recipe) {
+    this.id = recipe.id;
+    this.image = recipe.image;
+    this.ingredients = recipe.ingredients;
+    this.instructions = recipe.instructions;
+    this.name = recipe.name;
+    this.tags = recipe.tags;
+  };
 
-    returnIngredientNames(ingredientData) {
+     returnIngredientNames(ingredientData) {
         return this.ingredients.reduce((acc, ing) => {
           ingredientData.map(data => {
             if(ing.id === data.id) {
@@ -31,14 +31,13 @@ class Recipe {
           return (Math.round((cost / 100) * 100) / 100).toFixed(2);
     };
 
-    returnInstructions() {
-      let steps = [];
-        this.instructions.forEach(currentInstruction => {
-            steps.push(`Step ${currentInstruction.number}: ${currentInstruction.instruction}`);
-        })
-        console.log(steps);
-        return steps;
-    };
+  returnInstructions() {
+    let steps = [];
+    this.instructions.map(currentInstruction => {
+      steps.push(`Step ${currentInstruction.number}: ${currentInstruction.instruction}`)
+    });
+    return steps
+  };
 };
 
 export default Recipe
