@@ -42,15 +42,23 @@ const homeView = document.querySelector('.home-view');
 const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
 const favoritesNavButton = document.querySelector('.saved-button')
+const savedRecipesGrid = document.querySelector('.save-view');
+const pantryView = document.querySelector('.pantry-view');
 const searchBar = document.querySelector('.search-bar');
+const favoriteRecipes = document.querySelector('#fave-card-grid');
+const favoriteButton = document.querySelector('.favorite-button');
 const homeButton = document.querySelector('#buttonOfHome');
+const pantryButton = document.querySelector('.pantry-button');
+const pantryList = document.querySelector('#pantry-list');
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 searchBar.addEventListener('keyup', filterRecipe);
-homeButton.addEventListener('click', showAllRecipes);
 favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
+favoriteButton.addEventListener('click', addToFavorites);
+homeButton.addEventListener('click', showAllRecipes);
+pantryButton.addEventListener('click', showPantry);
 
 
 // Functions
@@ -65,6 +73,8 @@ function loadUser() {
   newRecipeRepo = new RecipeRepository (recipeCards);
   renderUser(currentUser);
   renderAllRecipes(recipeCards);
+  renderPantry()
+  console.log(currentUser) // DONT FORGET TO REMOVE
 }
 
 function renderUser(user) {
@@ -96,6 +106,20 @@ function renderFavoriteRecipes(data) {
   </li>`).join('');
 }
 
+function renderPantry() {
+  const render = currentUser.pantry.map(ing => {
+    let newing = ingredientsData.find(i => i.id === ing.ingredient);
+    const newObj = {
+    name: (newing && newing.name) || "Undefined",
+    amount: ing.amount
+    }
+    return `<ul>${newObj.name} ${newObj.amount}</ul>`
+  });
+  pantryList.innerHTML = '';
+  pantryList.innerHTML = 
+    `${render.join('')}`
+}
+
 function filterRecipe() {
   const recipeSearch = searchBar.value;
   const filteredRecipes = newRecipeRepo.filterByName(recipeSearch);
@@ -118,6 +142,7 @@ function showRecipe(event) {
     return `<li>${inst.instruction}</li>`
   });
 
+  singleRecipe.innerHTML = '';
   singleRecipe.innerHTML = 
     `<img src="${recipe.image}"></img>
     <h2 class="single-recipe-name">${recipe.name}</h2>
@@ -145,7 +170,7 @@ function addToFavorites(event) {
     }
   })
   currentUser.addToCookList(favoritedRecipe)
-  console.log(currentUser)
+//  console.log(currentUser)
 }
 
 function viewFavoriteRecipes() {
@@ -167,8 +192,16 @@ function viewFavoriteRecipes() {
 // searchbar should have a handler to search all recipes and filter by entered/ selected name OR tag
 
 function showAllRecipes() {
-  savedRecipesView.classList.add('hidden');
+  savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   homeView.classList.remove('hidden');
   renderAllRecipes(recipeData);
+}
+
+function showPantry() {
+  savedRecipesGrid.classList.add('hidden');
+  singleRecipe.classList.add('hidden');
+  homeView.classList.add('hidden');
+  pantryView.classList.remove('hidden');
+  renderPantry()
 }
