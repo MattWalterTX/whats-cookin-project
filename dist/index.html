@@ -16,6 +16,7 @@
       <nav>
         <button class="home-button" id="buttonOfHome">Home</button>
         <button class="saved-button">Saved Recipes</button>
+        <button class="pantry-button">Your Pantry</button>
         <input class="search-bar" type="text" placeholder="Search...">
       </nav>
     </h1>
@@ -52,6 +53,23 @@
         </section>
       </section>
       <section class="single-recipe hidden">
+        <img></img>
+        <h2 class="single-recipe-name"></h2>
+        <button class="favorite-button">Add to Favorites</button>
+        <section class="single-recipe-contents">
+          <section>
+            <div>Ingredients List</div>
+            <div>Total Cost</div>
+          </section>
+          <section>
+            <div>Instructions</div>
+            <ol></ol>
+          </section>
+        </section>
+      </section>
+      <section class="pantry-view hidden">
+        <div>These are the Ingredients you have in your Pantry</div>
+        <ul id="pantry-list"></ul>
       </section>
     </main>
   </body>

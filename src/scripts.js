@@ -47,17 +47,21 @@ const greeting = document.querySelector('#greeting');
 const homeView = document.querySelector('.home-view');
 const singleRecipe = document.querySelector('.single-recipe');
 const savedRecipesGrid = document.querySelector('.save-view');
+const pantryView = document.querySelector('.pantry-view');
 const searchBar = document.querySelector('.search-bar');
 const favoriteRecipes = document.querySelector('#fave-card-grid');
-const favoriteButton = document.querySelector('#favorite-button');
+const favoriteButton = document.querySelector('.favorite-button');
 const homeButton = document.querySelector('#buttonOfHome');
+const pantryButton = document.querySelector('.pantry-button');
+const pantryList = document.querySelector('#pantry-list');
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 searchBar.addEventListener('keyup', filterRecipe);
-// favoriteButton.addEventListener('click', addToFavorites);
+favoriteButton.addEventListener('click', addToFavorites);
 homeButton.addEventListener('click', showAllRecipes);
+pantryButton.addEventListener('click', showPantry);
 
 
 // Functions
@@ -65,6 +69,8 @@ function loadUser() {
   renderUser(currentUser);
   // renderIngredientsData();
   renderAllRecipes(recipeCards);
+  renderPantry()
+  console.log(currentUser) // DONT FORGET TO REMOVE
 }
 
 function renderUser(user) {
@@ -82,6 +88,20 @@ function renderAllRecipes(data) {
         ${recipe.tags}
       </div>
     </li>`).join('');
+}
+
+function renderPantry() {
+  const render = currentUser.pantry.map(ing => {
+    let newing = ingredientsData.find(i => i.id === ing.ingredient);
+    const newObj = {
+    name: (newing && newing.name) || "Undefined",
+    amount: ing.amount
+    }
+    return `<ul>${newObj.name} ${newObj.amount}</ul>`
+  });
+  pantryList.innerHTML = '';
+  pantryList.innerHTML = 
+    `${render.join('')}`
 }
 
 function filterRecipe() {
@@ -107,10 +127,11 @@ function showRecipe(event) {
     return `<li>${inst.instruction}</li>`
   });
 
+  singleRecipe.innerHTML = '';
   singleRecipe.innerHTML = 
     `<img src="${recipe.image}"></img>
     <h2 class="single-recipe-name">${recipe.name}</h2>
-    <button id="${recipe.id}">Add to Favorites</button>
+    <button id="${recipe.id}" class="favorite-button">Add to Favorites</button>
     <section class="single-recipe-contents">
       <section>
         <div>Ingredients List</div>
@@ -126,7 +147,8 @@ function showRecipe(event) {
 }
 
 function addToFavorites() {
-
+  console.log('HELP');
+  return 'HELP'
 }
 
 
@@ -144,4 +166,12 @@ function showAllRecipes() {
   singleRecipe.classList.add('hidden');
   homeView.classList.remove('hidden');
   renderAllRecipes(recipeData);
+}
+
+function showPantry() {
+  savedRecipesGrid.classList.add('hidden');
+  singleRecipe.classList.add('hidden');
+  homeView.classList.add('hidden');
+  pantryView.classList.remove('hidden');
+  renderPantry()
 }
