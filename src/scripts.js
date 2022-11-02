@@ -177,6 +177,7 @@ function viewFavoriteRecipes() {
   greeting.classList.add('hidden');
   homeView.classList.add('hidden');
   singleRecipe.classList.add('hidden');
+  pantryView.classList.add('hidden');
   savedRecipesView.classList.remove('hidden');
   renderFavoriteRecipes(currentUser)
 }
@@ -194,6 +195,7 @@ function viewFavoriteRecipes() {
 function showAllRecipes() {
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.add('hidden');
+  pantryView.classList.add('hidden');
   homeView.classList.remove('hidden');
   renderAllRecipes(recipeData);
 }
