@@ -52,14 +52,17 @@ const singleRecipe = document.querySelector('.single-recipe');
 const homeNavButton = document.querySelector('.home-button')
 const favoritesNavButton = document.querySelector('.saved-button')
 const searchBar = document.querySelector('.search-bar');
-
+const favoriteRecipes = document.querySelector('#fave-card-grid');
+const favoriteButton = document.querySelector('#favorite-button');
+const homeButton = document.querySelector('#buttonOfHome');
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 searchBar.addEventListener('keyup', filterRecipe);
-favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
-homeNavButton.addEventListener('click', viewHome)
+// favoriteButton.addEventListener('click', addToFavorites);
+homeButton.addEventListener('click', showAllRecipes);
+
 
 // Functions
 function loadUser() {
@@ -74,15 +77,14 @@ function renderUser(user) {
 
 function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = '';
-    data.map(recipe => {
-      allRecipesGrid.innerHTML +=
-      `<li class="recipe-card">
-      <h3 class="" id="recipe-title">${recipe.name}</h3>
+  allRecipesGrid.innerHTML = 
+    data.map(recipe => `<li class="recipe-card">
+      <h3> class="" id="recipe-title">${recipe.name}</h3>
       <img id="${recipe.id}" src="${recipe.image}">
       <div class="">
         ${recipe.tags}
       </div>
-    </li>`}).join('');
+    </li>`).join('');
 }
 
 function renderFavoriteRecipes(data) {
@@ -106,7 +108,6 @@ function filterRecipe() {
 }
 
 function showRecipe(event) {
-  greeting.classList.add('hidden');
   homeView.classList.add('hidden');
   savedRecipesView.classList.add('hidden');
   singleRecipe.classList.remove('hidden');
@@ -130,6 +131,8 @@ function showRecipe(event) {
       <section>
         <div>Ingredients List</div>
         ${ingredients.join('')}
+        <div>Total Cost</div>
+        ${recipe.returnIngredientCost(ingredientsData)}
       </section>
       <section> 
         <div>Instructions</div>
@@ -175,3 +178,10 @@ function viewHome() {
 
 // As a user, I should be able to search recipes by their name. (Extension option: by name or ingredients)
 // searchbar should have a handler to search all recipes and filter by entered/ selected name OR tag
+
+function showAllRecipes() {
+  savedRecipesGrid.classList.add('hidden');
+  singleRecipe.classList.add('hidden');
+  homeView.classList.remove('hidden');
+  renderAllRecipes(recipeData);
+}
