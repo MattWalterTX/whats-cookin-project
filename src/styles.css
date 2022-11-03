@@ -122,7 +122,7 @@ nav {
   justify-content: center;
 }
 
-#all-card-grid {
+#all-card-grid, #fave-card-grid {
   display: flex;
   justify-content: center;
   flex-direction: row;

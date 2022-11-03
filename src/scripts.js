@@ -75,7 +75,6 @@ function loadUser() {
   renderUser(currentUser);
   renderAllRecipes(recipeCards);
   renderPantry()
-  // console.log(currentUser) // DONT FORGET TO REMOVE
 }
 
 function renderUser(user) {
@@ -100,11 +99,24 @@ function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
     <h3 class="" id="recipe-title">${recipe.name}</h3>
-    <img id="${recipe.id}" src="${recipe.image}">
-    <div class="">
-      ${recipe.tags}
-    </div>
+    <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+    <h3 class="recipe-tags-all">
+        ${recipe.tags}
+      </h3>
+    <button class="remove-button" id="${recipe.id}">Remove from Favorites</button>
   </li>`).join('');
+  const removeFromFavoritesButton = document.querySelectorAll('.remove-button');
+  removeFromFavoritesButton.forEach(button => {
+    button.addEventListener('click', removeFromFavorites);
+  })
+}
+
+function removeFromFavorites(event) {
+  let recipeToRemove = currentUser.recipesToCook.findIndex(recipe => {
+    return recipe.id === parseInt(event.target.id)
+  })
+  currentUser.recipesToCook.splice(recipeToRemove, 1)
+  renderFavoriteRecipes(currentUser.recipesToCook)
 }
 
 function renderPantry() {
@@ -112,7 +124,6 @@ function renderPantry() {
     let newIng = ingredientsData.find(i => i.id === ing.ingredient);
     let recMatch = recipeData.find(recipe => recipe.ingredients.find(z => z.id === ing.ingredient));
     let newUnit = recMatch.ingredients.find(ingred => ingred.id === ing.ingredient)
-    // console.log('newUnit: ', newUnit);
 
     const newObj = {
       name: (newIng && newIng.name) || "Undefined",
@@ -181,8 +192,9 @@ function addToFavorites(event) {
       return recipe
     }
   })
-  currentUser.addToCookList(favoritedRecipe)
-//  console.log(currentUser)
+  if (!currentUser.recipesToCook.includes(favoritedRecipe)) {
+    currentUser.addToCookList(favoritedRecipe)
+  }
 }
 
 function viewFavoriteRecipes() {
