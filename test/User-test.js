@@ -21,10 +21,6 @@ describe('User', () => {
     expect(user1.name).to.equal('Saige O\'Kon');
   });
 
-   it('should ', () => {
-    expect().to.equal();
-  });
-
   it('should have an id', () => {
     expect(user1.id).to.equal(1);
   });
@@ -51,9 +47,17 @@ describe('User', () => {
     expect(user1.filterByTag('snack')).to.deep.equal([recipe1]);
   });
 
- it('should filter by a given name', () => {
+  it('should return an empty array if the tag is not found', () => {
+    expect(user1.filterByTag('cardboard')).to.deep.equal([]);
+  });
+
+  it('should filter by a given name', () => {
     expect(user1.filterByName("Maple")).to.deep.equal([recipe2]);
     expect(user1.filterByName("Cookie Cups")).to.deep.equal([recipe1]);
+  });
+
+  it('should return an empty array if the name is not found', () => {
+    expect(user1.filterByName('My Gramma\'s Pot Roast')).to.deep.equal([]);
   });
 
 });
