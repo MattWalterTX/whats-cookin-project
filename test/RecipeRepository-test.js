@@ -37,6 +37,6 @@ describe('RecipeRepository', () => {
   })
   it('Should not return any recipe if the search is blank', () => {
     const recipeRepo = new RecipeRepository(recipesList)
-    expect(recipeRepo.filterByName('').length).to.equal(0)
+    expect(recipeRepo.filterByName(' ').length).to.equal(0)
   })
 })
