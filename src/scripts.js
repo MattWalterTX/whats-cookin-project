@@ -161,6 +161,8 @@ function showRecipe(event) {
         ${ingredients.join('')}
         <div>Total Cost</div>
         ${recipe.returnIngredientCost(ingredientsData)}
+        <br>
+        <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
       </section>
       <section> 
         <div>Instructions</div>

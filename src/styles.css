@@ -171,7 +171,7 @@ nav {
   font-size: .8vw;
 }
 
-.favorite-button {
+.favorite-button, .cook-button {
 border: 2px;
 border-style: solid;
 border-radius: 1vw;
@@ -180,7 +180,7 @@ font-style: italic;
 font-size: 1.1vw;
 }
 
-.favorite-button:hover {
+.favorite-button:hover, .cook-button:hover {
   cursor: pointer;
   color: #E99B3D;
   border-color: #000000;
