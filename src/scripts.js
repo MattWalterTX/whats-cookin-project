@@ -42,19 +42,20 @@ const homeView = document.querySelector('.home-view');
 const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
 
-const favoritesNavButton = document.querySelector('.saved-button')
+const favoritesNavButton = document.querySelector('#saved-button')
 const savedRecipesGrid = document.querySelector('.save-view');
 const pantryView = document.querySelector('.pantry-view');
 const searchBar = document.querySelector('.search-bar');
 const favoriteRecipes = document.querySelector('#fave-card-grid');
 const favoriteButton = document.querySelector('.favorite-button');
 const homeButton = document.querySelector('#buttonOfHome');
-const pantryButton = document.querySelector('.pantry-button');
+const pantryButton = document.querySelector('#pantry-button');
 const pantryList = document.querySelector('#pantry-list');
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
+favoriteRecipesGrid.addEventListener('click', showRecipe);
 searchBar.addEventListener('keyup', filterRecipe);
 favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
 favoriteButton.addEventListener('click', addToFavorites);
@@ -100,10 +101,10 @@ function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = 
   data.recipesToCook.map(recipe => `<li class="recipe-card">
     <h3 class="" id="recipe-title">${recipe.name}</h3>
-    <img id="${recipe.id}" src="${recipe.image}">
-    <div class="">
+    <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+    <h3 class="recipe-tags-all">
       ${recipe.tags}
-    </div>
+    </h3>
   </li>`).join('');
 }
 
@@ -136,6 +137,7 @@ function showRecipe(event) {
   homeView.classList.add('hidden');
   savedRecipesView.classList.add('hidden');
   singleRecipe.classList.remove('hidden');
+  window.scrollTo(0, 0);
 
   const recipe = newRecipeRepo.recipes.find(recipe => {
     return recipe.id === parseInt(event.target.id)
@@ -175,7 +177,9 @@ function addToFavorites(event) {
       return recipe
     }
   })
-  currentUser.addToCookList(favoritedRecipe)
+  if(!currentUser.recipesToCook.includes(favoritedRecipe)) {
+    currentUser.addToCookList(favoritedRecipe)
+  }
 //  console.log(currentUser)
 }
 
@@ -206,6 +210,7 @@ function returnHome() {
 // searchbar should have a handler to search all recipes and filter by entered/ selected name OR tag
 
 function showAllRecipes() {
+  greeting.classList.remove('hidden');
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   pantryView.classList.add('hidden');
