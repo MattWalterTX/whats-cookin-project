@@ -308,12 +308,35 @@ describe('Recipe', () => {
         recipe1 = new Recipe(recipeData[0]);
     });
 
-    it('should create a new Recipe instance', () => {
-        expect(recipe1.id).to.equal(recipeData[0].id);
-        expect(recipe1.image).to.equal(recipeData[0].image);
-        expect(recipe1.ingredients).to.equal(recipeData[0].ingredients);
-        expect(recipe1.instructions).to.equal(recipeData[0].instructions);
-        expect(recipe1.name).to.equal(recipeData[0].name);
+    it('should be a function', () => {
+      expect(Recipe).to.be.a('function');
+    });
+  
+    it('should be an instance of Recipe', () => {
+      expect(recipe1).to.be.an.instanceof(Recipe);
+    }); 
+
+    it('should store the recipe id from the data', () => {
+      expect(recipe1.id).to.equal(recipeData[0].id);
+    }); 
+
+    it('should store the recipe image from the data', () => {
+      expect(recipe1.image).to.equal(recipeData[0].image);
+    }); 
+
+    it('should store recipe ingredients from the data', () => {
+      expect(recipe1.ingredients).to.equal(recipeData[0].ingredients);
+    }); 
+
+    it('should store recipe instructions from the data', () => {
+      expect(recipe1.instructions).to.equal(recipeData[0].instructions);
+    }); 
+
+    it('should store the recipe name from the data', () => {
+      expect(recipe1.name).to.equal(recipeData[0].name);
+    }); 
+
+    it('should store recipe tags from the data', () => {
         expect(recipe1.tags).to.equal(recipeData[0].tags);
     });
 
