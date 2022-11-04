@@ -51,7 +51,7 @@ describe('RecipeRepository', () => {
   });
 
   it('Should not return any recipe if the search is blank', () => {
-    expect(recipeRepo.filterByName('')).to.deep.equal([]);
+    expect(recipeRepo.filterByName(' ')).to.deep.equal([]);
   });
 
 })

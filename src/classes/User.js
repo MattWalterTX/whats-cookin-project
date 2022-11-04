@@ -1,3 +1,4 @@
+import Ingredient from "./Ingredient";
 
 
 class User {
@@ -72,6 +73,25 @@ class User {
         });
         return pantryStatus;
     };
+    cookRecipe(recipe) {
+        const pantry = this.checkPantry(recipe)
+        console.log(pantry)
+        const mathTotals = this.pantryMathing(pantry)
+        console.log(mathTotals)
+        if (mathTotals.every(total => total >= 0)) {
+            console.log('Cooking!')
+        } else {
+            console.log('booooo')
+        }
+        // if good cook it
+       
+    }
+    pantryMathing(data) {
+        const totals = data.map(ingredient => {
+            return ingredient.pantryQ - ingredient.recipeQ
+        })
+        return totals
+    }
 };
 
 export default User

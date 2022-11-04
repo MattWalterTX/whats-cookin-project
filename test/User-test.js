@@ -60,4 +60,8 @@ describe('User', () => {
     expect(user1.filterByName('My Gramma\'s Pot Roast')).to.deep.equal([]);
   });
 
+  it('aaaaaaaaa', () => {
+    console.log(user1.cookRecipe(recipe2))
+  });
+
 });
