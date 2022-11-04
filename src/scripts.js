@@ -33,7 +33,18 @@ function instantiateData() {
   })
 }
 
-
+function addUserData() {
+  fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    body: JSON.stringify(),
+    headers: {
+      'Content-Type': 'applications/json'
+    }
+  })
+  .then(response => response.json())
+  .then(reloadUserDashboard())
+  .catch(err => console.log(err))
+}
 
 
 // Query Selectors
