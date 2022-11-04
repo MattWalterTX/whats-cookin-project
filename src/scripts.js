@@ -41,12 +41,11 @@ const greeting = document.querySelector('#greeting');
 const homeView = document.querySelector('.home-view');
 const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
-
 const favoritesNavButton = document.querySelector('#saved-button')
 const savedRecipesGrid = document.querySelector('.save-view');
 const pantryView = document.querySelector('.pantry-view');
-const searchBar = document.querySelector('.search-bar');
-const favoriteRecipes = document.querySelector('#fave-card-grid');
+const mainSearchBar = document.querySelector('.main-search-bar');
+const favoritedSearchBar = document.querySelector('.favorited-search-bar')
 const favoriteButton = document.querySelector('.favorite-button');
 const homeButton = document.querySelector('#buttonOfHome');
 const pantryButton = document.querySelector('#pantry-button');
@@ -56,7 +55,8 @@ const pantryList = document.querySelector('#pantry-list');
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 favoriteRecipesGrid.addEventListener('click', showRecipe);
-searchBar.addEventListener('keyup', filterRecipe);
+mainSearchBar.addEventListener('keyup', filterRecipe);
+favoritedSearchBar.addEventListener('keyup', searchFavoritedRecipes)
 favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
 favoriteButton.addEventListener('click', addToFavorites);
 homeButton.addEventListener('click', showAllRecipes);
@@ -76,7 +76,7 @@ function loadUser() {
   renderUser(currentUser);
   renderAllRecipes(recipeCards);
   renderPantry()
-  console.log(currentUser) // DONT FORGET TO REMOVE
+  // console.log(currentUser) // DONT FORGET TO REMOVE
 }
 
 function renderUser(user) {
@@ -99,7 +99,7 @@ function renderAllRecipes(data) {
 function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = '';
   favoriteRecipesGrid.innerHTML = 
-  data.recipesToCook.map(recipe => `<li class="recipe-card">
+    data.map(recipe => `<li class="recipe-card">
     <h3 class="" id="recipe-title">${recipe.name}</h3>
     <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
     <h3 class="recipe-tags-all">
@@ -113,7 +113,7 @@ function renderPantry() {
     let newIng = ingredientsData.find(i => i.id === ing.ingredient);
     let recMatch = recipeData.find(recipe => recipe.ingredients.find(z => z.id === ing.ingredient));
     let newUnit = recMatch.ingredients.find(ingred => ingred.id === ing.ingredient)
-    console.log('newUnit: ', newUnit);
+    // console.log('newUnit: ', newUnit);
 
     const newObj = {
       name: (newIng && newIng.name) || "Undefined",
@@ -128,9 +128,15 @@ function renderPantry() {
 }
 
 function filterRecipe() {
-  const recipeSearch = searchBar.value;
+  const recipeSearch = mainSearchBar.value;
   const filteredRecipes = newRecipeRepo.filterByName(recipeSearch);
   renderAllRecipes(filteredRecipes);
+}
+
+function searchFavoritedRecipes() {
+  const recipeSearch = favoritedSearchBar.value;
+  const filteredRecipes = currentUser.filterByName(recipeSearch);
+  renderFavoriteRecipes(filteredRecipes)
 }
 
 function showRecipe(event) {
@@ -188,19 +194,13 @@ function addToFavorites(event) {
 function viewFavoriteRecipes() {
   greeting.classList.add('hidden');
   homeView.classList.add('hidden');
+  mainSearchBar.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   pantryView.classList.add('hidden');
   savedRecipesView.classList.remove('hidden');
-  renderFavoriteRecipes(currentUser)
+  favoritedSearchBar.classList.remove('hidden');
+  renderFavoriteRecipes(currentUser.recipesToCook)
 }
-
-function returnHome() {
-  greeting.classList.toggle('hidden');
-  homeView.classList.toggle('hidden');
-  savedRecipesGrid.classList.toggle('hidden');
-  singleRecipe.classList.toggle('hidden');
-};
-
 
 // As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
 // render page view/ unhide form of grid containing all recipe card objects WITH SELECTED TAG for All Recipes Page display (may as well reuse code for render?)
@@ -216,7 +216,10 @@ function showAllRecipes() {
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   pantryView.classList.add('hidden');
+  greeting.classList.remove('hidden');
   homeView.classList.remove('hidden');
+  mainSearchBar.classList.remove('hidden')
+  favoritedSearchBar.classList.add('hidden');
   renderAllRecipes(recipeData);
 }
 
@@ -224,6 +227,8 @@ function showPantry() {
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   homeView.classList.add('hidden');
+  favoritedSearchBar.classList.add('hidden');
+  mainSearchBar.classList.remove('hidden')
   pantryView.classList.remove('hidden');
   renderPantry()
 }
