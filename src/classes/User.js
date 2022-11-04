@@ -40,6 +40,8 @@ class User {
             return acc;
         }, []);
 
+        console.log(pantryIdsArray)
+
         recipe.ingredients.forEach(rIng => {
             if(!pantryIdsArray.includes(rIng.id)) {
                 let obj = {};
