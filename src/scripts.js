@@ -33,7 +33,7 @@ function instantiateData() {
   })
 }
 
-function addUserData() {
+function modifyUserData() {
   fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
     body: JSON.stringify(),
@@ -44,6 +44,18 @@ function addUserData() {
   .then(response => response.json())
   .then(reloadUserDashboard())
   .catch(err => console.log(err))
+}
+
+function reloadUserDashboard() {
+  recipeCards = recipeData.map(recipe => {
+    const newCard = new Recipe (recipe);
+    return newCard
+  });
+  newRecipeRepo = new RecipeRepository (recipeCards);
+  renderUser(currentUser);
+  renderAllRecipes(recipeCards);
+  renderPantry()
+  renderFavoriteRecipes(currentUser.recipesToCook)
 }
 
 
