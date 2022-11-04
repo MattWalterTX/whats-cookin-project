@@ -1,4 +1,5 @@
 
+
 class User {
     constructor(user) {
         this.name = user.name;

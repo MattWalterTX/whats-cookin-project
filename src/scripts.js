@@ -41,19 +41,20 @@ const greeting = document.querySelector('#greeting');
 const homeView = document.querySelector('.home-view');
 const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
-const favoritesNavButton = document.querySelector('.saved-button')
+const favoritesNavButton = document.querySelector('#saved-button')
 const savedRecipesGrid = document.querySelector('.save-view');
 const pantryView = document.querySelector('.pantry-view');
 const mainSearchBar = document.querySelector('.main-search-bar');
 const favoritedSearchBar = document.querySelector('.favorited-search-bar')
 const favoriteButton = document.querySelector('.favorite-button');
 const homeButton = document.querySelector('#buttonOfHome');
-const pantryButton = document.querySelector('.pantry-button');
+const pantryButton = document.querySelector('#pantry-button');
 const pantryList = document.querySelector('#pantry-list');
 
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
+favoriteRecipesGrid.addEventListener('click', showRecipe);
 mainSearchBar.addEventListener('keyup', filterRecipe);
 favoritedSearchBar.addEventListener('keyup', searchFavoritedRecipes)
 favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
@@ -153,6 +154,7 @@ function showRecipe(event) {
   homeView.classList.add('hidden');
   savedRecipesView.classList.add('hidden');
   singleRecipe.classList.remove('hidden');
+  window.scrollTo(0, 0);
 
   const recipe = newRecipeRepo.recipes.find(recipe => {
     return recipe.id === parseInt(event.target.id)
@@ -176,6 +178,8 @@ function showRecipe(event) {
         ${ingredients.join('')}
         <div>Total Cost</div>
         ${recipe.returnIngredientCost(ingredientsData)}
+        <br>
+        <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
       </section>
       <section> 
         <div>Instructions</div>
@@ -218,6 +222,7 @@ function viewFavoriteRecipes() {
 // searchbar should have a handler to search all recipes and filter by entered/ selected name OR tag
 
 function showAllRecipes() {
+  greeting.classList.remove('hidden');
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   pantryView.classList.add('hidden');
