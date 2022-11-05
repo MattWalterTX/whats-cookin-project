@@ -28,10 +28,18 @@ class User {
         return filteredList
       }
 
-    addToPantry(ingredient) {
-        //NOTICE! this.pantry stores the ingredients in this format:
-        //id, quantity{amount, unit}. <<NO NAME GIVEN!!
-        this.pantry.push(ingredient);
+    addToPantry(recipe) {
+        const pantryStatus = this.checkPantry(recipe);
+        pantryStatus.forEach(ing => { if(ing.stockStatus === 'not enough') {
+            //(POST) EDIT QUANTITY AMOUNT!
+            //Make this.pantry match the updated API
+        };
+    });
+        pantryStatus.forEach(ing => { if(ing.stockStatus === 'empty') {
+            //POST IT!
+            //Make this.pantry match the updated API
+        };
+    });
     };
 
     checkPantry(recipe) {
