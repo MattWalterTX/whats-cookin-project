@@ -33,10 +33,14 @@ function instantiateData() {
   })
 }
 
-function modifyUserData() {
+function modifyUserData(userId, object) {
   fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
-    body: JSON.stringify(),
+    body: JSON.stringify({
+      userID: userId,
+      ingredientID: object.id,
+      ingredientModification: (object.recipeQ - object.pantryQ)
+    }),
     headers: {
       'Content-Type': 'applications/json'
     }
@@ -269,3 +273,5 @@ function showPantry() {
   pantryView.classList.remove('hidden');
   renderPantry()
 }
+
+export { modifyUserData };
