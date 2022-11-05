@@ -22,15 +22,40 @@ function makeAllHidden() {
 // Declare function to instantiate all of our data to dashboard on load/ refresh.
 function instantiateData() {
   Promise.all([
-    gatherData('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users'),
-    gatherData('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients'),
-    gatherData('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
+    gatherData('http://localhost:3001/api/v1/users'),
+    gatherData('http://localhost:3001/api/v1/ingredients'),
+    gatherData('http://localhost:3001/api/v1/recipes')
   ]).then(data => {
-      usersData = data[0].usersData;
-      ingredientsData = data[1].ingredientsData;
-      recipeData = data[2].recipeData;
+      usersData = data[0];
+      ingredientsData = data[1];
+      recipeData = data[2];
       loadUser();
   })
+}
+
+function modifyUserData() {
+  fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    body: JSON.stringify(),
+    headers: {
+      'Content-Type': 'applications/json'
+    }
+  })
+  .then(response => response.json())
+  .then(reloadUserDashboard())
+  .catch(err => console.log(err))
+}
+
+function reloadUserDashboard() {
+  recipeCards = recipeData.map(recipe => {
+    const newCard = new Recipe (recipe);
+    return newCard
+  });
+  newRecipeRepo = new RecipeRepository (recipeCards);
+  renderUser(currentUser);
+  renderAllRecipes(recipeCards);
+  renderPantry()
+  renderFavoriteRecipes(currentUser.recipesToCook)
 }
 
 
