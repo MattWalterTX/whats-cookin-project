@@ -59,10 +59,4 @@ describe('User', () => {
   it('should return an empty array if the name is not found', () => {
     expect(user1.filterByName('My Gramma\'s Pot Roast')).to.deep.equal([]);
   });
-
-  it('hhhhhhhhh', () => {
-    console.log(user1.checkPantry(recipe1));
-    return user1.checkPantry(recipe1);
-  });
-
 });
