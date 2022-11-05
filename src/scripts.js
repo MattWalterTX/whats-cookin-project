@@ -165,14 +165,16 @@ function renderPantry() {
 
 function filterRecipe() {
   const recipeSearch = mainSearchBar.value;
-  const filteredRecipes = newRecipeRepo.filterByName(recipeSearch);
-  renderAllRecipes(filteredRecipes);
+  let filteredRecipesByName = newRecipeRepo.filterByName(recipeSearch);
+  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(newRecipeRepo.filterByTag(recipeSearch))
+  renderAllRecipes(filteredRecipesByNameAndTag);
 }
 
 function searchFavoritedRecipes() {
   const recipeSearch = favoritedSearchBar.value;
-  const filteredRecipes = currentUser.filterByName(recipeSearch);
-  renderFavoriteRecipes(filteredRecipes)
+  let filteredRecipesByName = currentUser.filterByName(recipeSearch);
+  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(currentUser.filterByTag(recipeSearch))
+  renderFavoriteRecipes(filteredRecipesByNameAndTag);
 }
 
 function showRecipe(event) {

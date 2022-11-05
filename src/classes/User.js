@@ -13,9 +13,15 @@ class User {
         this.recipesToCook.push(recipe);
     };
 
-    filterByTag(tag) {
-        return this.recipesToCook.filter(recipe => recipe.tags.includes(tag));
-    };
+    filterByTag = (tag) => {
+        const filteredList = this.recipesToCook.filter(recipe => {
+          let tags = Object.values(recipe.tags)
+          if (tags.includes(tag.toLowerCase())) {
+            return recipe
+          }
+        })
+        return filteredList
+      }
 
     filterByName = (name) => {
         const filteredList = this.recipesToCook.filter(recipe => {
@@ -75,16 +81,20 @@ class User {
     };
     cookRecipe(recipe) {
         const pantry = this.checkPantry(recipe)
-        console.log(pantry)
+        // console.log(pantry)
         const mathTotals = this.pantryMathing(pantry)
-        console.log(mathTotals)
+        // console.log(mathTotals)
         if (mathTotals.every(total => total >= 0)) {
-            console.log('Cooking!')
+            return true
         } else {
-            console.log('booooo')
+            return false
+        }  
+    }
+    updatePantry(recipe) {
+        if (this.cookRecipe(recipe)) {
+            // Come up with callback to remove rIng from pIng
+            
         }
-        // if good cook it
-       
     }
     pantryMathing(data) {
         const totals = data.map(ingredient => {
