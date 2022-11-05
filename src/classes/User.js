@@ -1,4 +1,5 @@
 import Ingredient from "./Ingredient";
+//import { modifyUserData } from '../scripts';
 
 
 class User {
@@ -30,16 +31,21 @@ class User {
 
     addToPantry(recipe) {
         const pantryStatus = this.checkPantry(recipe);
-        pantryStatus.forEach(ing => { if(ing.stockStatus === 'not enough') {
-            //(POST) EDIT QUANTITY AMOUNT!
-            //Make this.pantry match the updated API
-        };
-    });
-        pantryStatus.forEach(ing => { if(ing.stockStatus === 'empty') {
-            //POST IT!
-            //Make this.pantry match the updated API
-        };
-    });
+        return pantryStatus.forEach(objIng => {
+            if(objIng.stockStatus === 'not enough') {
+            return this.pantry.forEach(userIng => {
+                if(userIng.ingredient === objIng.id) {
+                    userIng.amount += (objIng.recipeQ - objIng.pantryQ);
+                    };
+                });
+            };
+            if(objIng.stockStatus === 'empty') {
+                let obj = {};
+                obj['ingredient'] = objIng.id;
+                obj['amount'] = objIng.recipeQ;
+                this.pantry.push(obj);
+            };
+        });
     };
 
     checkPantry(recipe) {
@@ -49,7 +55,7 @@ class User {
             return acc;
         }, []);
 
-        console.log(pantryIdsArray)
+        //console.log(pantryIdsArray)
 
         recipe.ingredients.forEach(rIng => {
             if(!pantryIdsArray.includes(rIng.id)) {
@@ -81,6 +87,7 @@ class User {
                 } ;
             });
         });
+        //console.log(pantryStatus);
         return pantryStatus;
     };
     cookRecipe(recipe) {
