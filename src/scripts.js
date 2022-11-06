@@ -218,6 +218,7 @@ function showRecipe(event) {
         ${recipe.returnIngredientCost(ingredientsData)}
         <br>
         <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
+        <button class="add-missing-button" id="${recipe.id}">Add Missing Ingredients to Pantry!</button>
       </section>
       <section> 
         <div>Instructions</div>
@@ -226,8 +227,10 @@ function showRecipe(event) {
     </section>`;
   const favoriteButton = document.querySelector('.favorite-button');
   const cookButton = document.querySelector('.cook-button');
+  const addIngsButton = document.querySelector('.add-missing-button');
   favoriteButton.addEventListener('click', addToFavorites);
   cookButton.addEventListener('click', letsCook);
+  addIngsButton.addEventListener('click', addIngredients);
 }
 
 function addToFavorites(event) {
@@ -243,26 +246,42 @@ function addToFavorites(event) {
 
 function letsCook() {
   const pantryStatus = currentUser.checkPantry(currentRecipe);
-  console.log(pantryStatus);
   const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
   if(insufficientArray.length === 0) {
-    //Cook the recipe, remove the ingredients from the pantry!!
+    cookRecipe();
+    alert('YEET')
   }
   else {
     displayMissingIngredients(pantryStatus);
-  }
-}
+  };
+};
+
+function cookRecipe() {
+  //remove stuff from pantry; remove stuff using POST.
+};
 
 function displayMissingIngredients(pantryStatus) {
   const missingIngs = [];
   pantryStatus.forEach(obj => {
     const correctIng = ingredientsData.find(ing => ing.id === obj.id);
     if(obj.stockStatus === 'not enough' || obj.stockStatus === 'empty') {
-      missingIngs.push(`${(obj.recipeQ - obj.pantryQ)} ${obj.unit} of ${correctIng.name}`)
+      missingIngs.push(` ${(obj.recipeQ - obj.pantryQ)} ${obj.unit} of ${correctIng.name}`)
     }
   })
-  console.log('You are currently missing: ', missingIngs, '!');
+    alert(`You are missing: ${missingIngs}. Add them to your pantry to cook the recipe!`)
 };
+
+function addIngredients() {
+  const pantryStatus = currentUser.checkPantry(currentRecipe);
+  const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
+  if(insufficientArray.length === 0) {
+    alert('There is nothing to add; you have all the required ingredients!')
+  }
+  else {
+    currentUser.addToPantry(currentRecipe);
+    alert('Ingredients added!');
+  };
+}
 
 function viewFavoriteRecipes() {
   greeting.classList.add('hidden');
