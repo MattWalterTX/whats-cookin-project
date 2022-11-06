@@ -54,6 +54,17 @@ class User {
         });
     };
 
+    removeFromPantry(recipe) {
+        const pantryStatus = this.checkPantry(recipe);
+        return pantryStatus.forEach(objIng => {
+            return this.pantry.forEach(userIng => {
+                if(userIng.ingredient === objIng.id) {
+                    userIng.amount =  (userIng.amount - objIng.recipeQ);
+                    };
+                });
+        });
+    };
+
     checkPantry(recipe) {
         let pantryStatus = [];
         let pantryIdsArray = this.pantry.reduce((acc, ing) => {
@@ -70,6 +81,7 @@ class User {
                 obj['stockStatus'] = 'empty';
                 obj['recipeQ'] = rIng.quantity.amount;
                 obj['pantryQ'] = 0;
+                obj['unit'] = rIng.quantity.unit;
                 pantryStatus.push(obj);
                 }
             return this.pantry.forEach(pIng => {
@@ -80,6 +92,7 @@ class User {
                         obj['stockStatus'] = 'sufficient';
                         obj['recipeQ'] = rIng.quantity.amount;
                         obj['pantryQ'] = pIng.amount;
+                        obj['unit'] = rIng.quantity.unit;
                         pantryStatus.push(obj);
                     }
                     if(pIng.ingredient === rIng.id && pIng.amount < rIng.quantity.amount) {
@@ -88,6 +101,7 @@ class User {
                         obj['stockStatus'] = 'not enough';
                         obj['recipeQ'] = rIng.quantity.amount;
                         obj['pantryQ'] = pIng.amount;
+                        obj['unit'] = rIng.quantity.unit;
                         pantryStatus.push(obj);
                     };
                 } ;

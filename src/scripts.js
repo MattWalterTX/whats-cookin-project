@@ -14,6 +14,7 @@ let recipeData;
 let currentUser;
 let newRecipeRepo;
 let recipeCards;
+let currentRecipe;
 
 function makeAllHidden() {
   recipeGrid.classList.toggle('hidden');
@@ -33,12 +34,12 @@ function instantiateData() {
   })
 }
 
-function modifyUserData(userId, object) {
+function modifyUserData(userId, ingredient) {
   fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
     body: JSON.stringify({
       userID: userId,
-      ingredientID: object.id,
+      ingredientID: ingredient.id,
       ingredientModification: (object.recipeQ - object.pantryQ)
     }),
     headers: {
@@ -48,6 +49,7 @@ function modifyUserData(userId, object) {
   .then(response => response.json())
   .then(reloadUserDashboard())
   .catch(err => console.log(err))
+  //we'll have to call a user method here to reflect our changes to the user class's pantry
 }
 
 function reloadUserDashboard() {
@@ -95,6 +97,7 @@ pantryButton.addEventListener('click', showPantry);
 // Functions
 function loadUser() {
   currentUser = new User(
+    //usersData[0]
     usersData[Math.floor(Math.random() * usersData.length)]
   );
   recipeCards = recipeData.map(recipe => {
@@ -157,6 +160,7 @@ function renderPantry() {
 
     const newObj = {
       name: (newIng && newIng.name) || "Undefined",
+      //should that be lowercase "undefined"? not sure if that makes a diff.
       amount: ing.amount,
       units: newUnit.quantity.unit
     }
@@ -190,6 +194,11 @@ function showRecipe(event) {
   const recipe = newRecipeRepo.recipes.find(recipe => {
     return recipe.id === parseInt(event.target.id)
   });
+
+  currentRecipe = newRecipeRepo.recipes.find(recipe => {
+    return recipe.id === parseInt(event.target.id)
+  });
+
   const ingredients = recipe.ingredients.map(ing => {
     const foundIng = ingredientsData.find(i => i.id === ing.id);
     return `<li>${foundIng.name}: ${ing.quantity.amount} ${ing.quantity.unit}</li>`
@@ -211,6 +220,7 @@ function showRecipe(event) {
         ${recipe.returnIngredientCost(ingredientsData)}
         <br>
         <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
+        <button class="add-missing-button" id="${recipe.id}">Add Missing Ingredients to Pantry!</button>
       </section>
       <section> 
         <div>Instructions</div>
@@ -218,7 +228,11 @@ function showRecipe(event) {
       </section>
     </section>`;
   const favoriteButton = document.querySelector('.favorite-button');
+  const cookButton = document.querySelector('.cook-button');
+  const addIngsButton = document.querySelector('.add-missing-button');
   favoriteButton.addEventListener('click', addToFavorites);
+  cookButton.addEventListener('click', letsCook);
+  addIngsButton.addEventListener('click', addIngredients);
 }
 
 function addToFavorites(event) {
@@ -230,6 +244,41 @@ function addToFavorites(event) {
   if (!currentUser.recipesToCook.includes(favoritedRecipe)) {
     currentUser.addToCookList(favoritedRecipe)
   }
+}
+
+function letsCook() {
+  const pantryStatus = currentUser.checkPantry(currentRecipe);
+  const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
+  if(insufficientArray.length === 0) {
+    currentUser.removeFromPantry(currentRecipe);
+    alert('YEET');
+  }
+  else {
+    displayMissingIngredients(pantryStatus);
+  };
+};
+
+function displayMissingIngredients(pantryStatus) {
+  const missingIngs = [];
+  pantryStatus.forEach(obj => {
+    const correctIng = ingredientsData.find(ing => ing.id === obj.id);
+    if(obj.stockStatus === 'not enough' || obj.stockStatus === 'empty') {
+      missingIngs.push(` ${(obj.recipeQ - obj.pantryQ)} ${obj.unit} of ${correctIng.name}`)
+    }
+  })
+    alert(`You are missing: ${missingIngs}. Add them to your pantry to cook the recipe!`)
+};
+
+function addIngredients() {
+  const pantryStatus = currentUser.checkPantry(currentRecipe);
+  const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
+  if(insufficientArray.length === 0) {
+    alert('There is nothing to add; you have all the required ingredients!')
+  }
+  else {
+    currentUser.addToPantry(currentRecipe);
+    alert('Ingredients added!');
+  };
 }
 
 function viewFavoriteRecipes() {
