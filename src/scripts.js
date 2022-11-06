@@ -15,6 +15,7 @@ let currentUser;
 let newRecipeRepo;
 let recipeCards;
 let currentRecipe;
+let pantryUpdateArea;
 
 function makeAllHidden() {
   recipeGrid.classList.toggle('hidden');
@@ -164,7 +165,7 @@ function renderPantry() {
       amount: ing.amount,
       units: newUnit.quantity.unit
     }
-    return `<ul>${newObj.name} ${newObj.amount} ${newObj.units}</ul>`
+    return `<ul>${newObj.name}: ${newObj.amount} ${newObj.units}</ul>`
   });
   pantryList.innerHTML = '';
   pantryList.innerHTML = 
@@ -207,7 +208,15 @@ function showRecipe(event) {
 
   singleRecipe.innerHTML = '';
   singleRecipe.innerHTML = 
-    `<img src="${recipe.image}"></img>
+    `<div class="top-section-container">
+    <img class="single-recipe-image" src="${recipe.image}"></img>
+      <div class="top-right-mini-container">
+      <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
+        <button class="add-missing-button" id="${recipe.id}">Add Missing Ingredients to Pantry!</button>
+        <div class="pantry-update-area">
+        </div>
+      </div>
+    </div>
     <h2 class="single-recipe-name">${recipe.name}</h2>
     <button class="favorite-button" id="${recipe.id}">Add to Favorites</button>
     <section class="single-recipe-contents">
@@ -215,7 +224,7 @@ function showRecipe(event) {
         <div>Ingredients List</div>
         ${ingredients.join('')}
         <div>Total Cost</div>
-        ${recipe.returnIngredientCost(ingredientsData)}
+        $${recipe.returnIngredientCost(ingredientsData)}
         <br>
         <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
         <button class="add-missing-button" id="${recipe.id}">Add Missing Ingredients to Pantry!</button>
@@ -228,6 +237,7 @@ function showRecipe(event) {
   const favoriteButton = document.querySelector('.favorite-button');
   const cookButton = document.querySelector('.cook-button');
   const addIngsButton = document.querySelector('.add-missing-button');
+  pantryUpdateArea = document.querySelector('.pantry-update-area');
   favoriteButton.addEventListener('click', addToFavorites);
   cookButton.addEventListener('click', letsCook);
   addIngsButton.addEventListener('click', addIngredients);
@@ -249,10 +259,12 @@ function letsCook() {
   const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
   if(insufficientArray.length === 0) {
     currentUser.removeFromPantry(currentRecipe);
-    alert('YEET');
+    pantryUpdateArea.innerHTML = '';
+    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`
   }
   else {
-    displayMissingIngredients(pantryStatus);
+    pantryUpdateArea.innerHTML = '';
+    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`
   };
 };
 
@@ -264,18 +276,21 @@ function displayMissingIngredients(pantryStatus) {
       missingIngs.push(` ${(obj.recipeQ - obj.pantryQ)} ${obj.unit} of ${correctIng.name}`)
     }
   })
-    alert(`You are missing: ${missingIngs}. Add them to your pantry to cook the recipe!`)
+    missingIngs[missingIngs.length - 1] = ` and ${missingIngs[missingIngs.length - 1]}`
+    return `You are missing: ${missingIngs}. Add them to your pantry to cook the recipe!`
 };
 
 function addIngredients() {
   const pantryStatus = currentUser.checkPantry(currentRecipe);
   const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
   if(insufficientArray.length === 0) {
-    alert('There is nothing to add; you have all the required ingredients!')
+    pantryUpdateArea.innerHTML = '';
+    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">There is nothing to add; you have all the required ingredients!</h3>`;
   }
   else {
     currentUser.addToPantry(currentRecipe);
-    alert('Ingredients added!');
+    pantryUpdateArea.innerHTML = '';
+    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Ingredients added!</h3>`;
   };
 }
 
