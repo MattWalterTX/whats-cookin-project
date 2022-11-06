@@ -249,9 +249,20 @@ function letsCook() {
     //Cook the recipe, remove the ingredients from the pantry!!
   }
   else {
-    //Helper function to tell you what you need, from there you can addToPantry!
+    displayMissingIngredients(pantryStatus);
   }
 }
+
+function displayMissingIngredients(pantryStatus) {
+  const missingIngs = [];
+  pantryStatus.forEach(obj => {
+    const correctIng = ingredientsData.find(ing => ing.id === obj.id);
+    if(obj.stockStatus === 'not enough' || obj.stockStatus === 'empty') {
+      missingIngs.push(`${(obj.recipeQ - obj.pantryQ)} ${obj.unit} of ${correctIng.name}`)
+    }
+  })
+  console.log('You are currently missing: ', missingIngs, '!');
+};
 
 function viewFavoriteRecipes() {
   greeting.classList.add('hidden');

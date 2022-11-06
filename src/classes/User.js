@@ -64,6 +64,7 @@ class User {
                 obj['stockStatus'] = 'empty';
                 obj['recipeQ'] = rIng.quantity.amount;
                 obj['pantryQ'] = 0;
+                obj['unit'] = rIng.quantity.unit;
                 pantryStatus.push(obj);
                 }
             return this.pantry.forEach(pIng => {
@@ -74,6 +75,7 @@ class User {
                         obj['stockStatus'] = 'sufficient';
                         obj['recipeQ'] = rIng.quantity.amount;
                         obj['pantryQ'] = pIng.amount;
+                        obj['unit'] = rIng.quantity.unit;
                         pantryStatus.push(obj);
                     }
                     if(pIng.ingredient === rIng.id && pIng.amount < rIng.quantity.amount) {
@@ -82,6 +84,7 @@ class User {
                         obj['stockStatus'] = 'not enough';
                         obj['recipeQ'] = rIng.quantity.amount;
                         obj['pantryQ'] = pIng.amount;
+                        obj['unit'] = rIng.quantity.unit;
                         pantryStatus.push(obj);
                     };
                 } ;
