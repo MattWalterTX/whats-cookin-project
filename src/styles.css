@@ -2,9 +2,6 @@
   background-color: #FFFDF6;
   box-sizing: border-box;
   font-family: 'Lora';
-  /* border: 1px;
-  border-style: solid;
-  border-color: #938B6D; */
 }
 
 .top-button {
@@ -59,7 +56,6 @@ h1 span, .personalized-greeting {
 
 main {
   display: flex;
-  /* background-color: blueviolet; */
   flex-direction: column;
   height: 100vw;
 }
@@ -109,13 +105,6 @@ nav {
   margin-top: 3vw;
   font-size: 1.8vw;
 }
-
-/* .all-recipe-grid {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-} */
 
 .recipe-header-container {
   display: flex;
@@ -190,8 +179,45 @@ font-size: 1.1vw;
   display: none!important;
 }
 
+.single-recipe {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-section-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-recipe-image {
+  height: 25vw;
+  width: 38vw;
+}
+
+.top-right-mini-container {
+  width: 60%;
+  margin-left: 4vw;
+}
+
+.pantry-update-area {
+
+}
+
+.pantry-update-info {
+  padding: 1vw;
+  border-style: solid;
+  border-color: #E99B3D;
+  border-width: .5vw;
+  border-radius: 1vw;
+  font-size: 1.2vw;
+}
+
 .single-recipe-contents {
   display: flex;
+}
+
+.favorite-button {
+  width: 10vw;
 }
 
 .single-recipe-contents>section {
