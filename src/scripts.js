@@ -248,16 +248,12 @@ function letsCook() {
   const pantryStatus = currentUser.checkPantry(currentRecipe);
   const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
   if(insufficientArray.length === 0) {
-    cookRecipe();
-    alert('YEET')
+    currentUser.removeFromPantry(currentRecipe);
+    alert('YEET');
   }
   else {
     displayMissingIngredients(pantryStatus);
   };
-};
-
-function cookRecipe() {
-  //remove stuff from pantry; remove stuff using POST.
 };
 
 function displayMissingIngredients(pantryStatus) {
