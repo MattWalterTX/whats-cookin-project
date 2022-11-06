@@ -122,7 +122,7 @@ function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
       <h3 class="" id="recipe-title">${recipe.name}</h3>
-      <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+      <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}" alt="${recipe.name}">
       <h3 class="recipe-tags-all">
         ${recipe.tags}
       </h3>
@@ -134,7 +134,7 @@ function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
     <h3 class="" id="recipe-title">${recipe.name}</h3>
-    <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+    <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}" alt="${recipe.name}">
     <h3 class="recipe-tags-all">
         ${recipe.tags}
       </h3>
@@ -216,7 +216,7 @@ function showRecipe(event) {
   singleRecipe.innerHTML = '';
   singleRecipe.innerHTML = 
     `<div class="top-section-container">
-    <img class="single-recipe-image" src="${recipe.image}"></img>
+    <img class="single-recipe-image" src="${recipe.image}" alt="${recipe.name}"></img>
       <div class="top-right-mini-container">
       <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
         <button class="add-missing-button" id="${recipe.id}">Add Missing Ingredients to Pantry!</button>
