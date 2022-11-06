@@ -48,6 +48,17 @@ class User {
         });
     };
 
+    removeFromPantry(recipe) {
+        const pantryStatus = this.checkPantry(recipe);
+        return pantryStatus.forEach(objIng => {
+            return this.pantry.forEach(userIng => {
+                if(userIng.ingredient === objIng.id) {
+                    userIng.amount =  (userIng.amount - objIng.recipeQ);
+                    };
+                });
+        });
+    };
+
     checkPantry(recipe) {
         let pantryStatus = [];
         let pantryIdsArray = this.pantry.reduce((acc, ing) => {
