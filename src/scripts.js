@@ -120,7 +120,7 @@ function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = '';
   allRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
-      <h3 class="" id="recipe-title">${recipe.name}</h3>
+      <h3 class="recipe-title" id="recipe-title">${recipe.name}</h3>
       <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
       <h3 class="recipe-tags-all">
         ${recipe.tags}
@@ -132,7 +132,7 @@ function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = '';
   favoriteRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
-    <h3 class="" id="recipe-title">${recipe.name}</h3>
+    <h3 class="recipe-title-favorited" id="recipe-title">${recipe.name}</h3>
     <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
     <h3 class="recipe-tags-all">
         ${recipe.tags}

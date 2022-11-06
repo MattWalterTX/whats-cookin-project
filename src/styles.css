@@ -2,6 +2,7 @@
   background-color: #FFFDF6;
   box-sizing: border-box;
   font-family: 'Lora';
+  color: #353431;
 }
 
 .top-button {
@@ -16,7 +17,7 @@ font-size: 1.1vw;
   text-decoration: underline;
 }
 
-input {
+.main-search-bar, .favorited-search-bar {
 font-style: italic;
 border: 2px;
 border-style: solid;
@@ -38,7 +39,7 @@ header {
   align-items: center;
 }
 
-h1 span, .personalized-greeting { 
+.personalized-greeting { 
   background: rgba(0, 0, 0, .6);
   border-radius: 1vw;
   text-align: center;
@@ -46,6 +47,7 @@ h1 span, .personalized-greeting {
   border-right: 1vw;
   border-style: solid;
   border-color: rgba(0, 0, 0, .001);
+  color: #FFFDF6;
 }
 
 .turing-logo {
@@ -112,7 +114,7 @@ nav {
   justify-content: center;
 }
 
-#all-card-grid, #fave-card-grid {
+.card-grid {
   display: flex;
   justify-content: center;
   align-content: flex-start;
@@ -121,6 +123,10 @@ nav {
   color: transparent;
   padding-left: 0;
   height: 100vw;
+}
+
+.saved-recipes-header {
+  margin-left: 2vw;
 }
 
 .recipe-card {
@@ -133,20 +139,28 @@ nav {
   max-height: 20vw;
   margin: 1.5vw;
   font-size: 1vw;
-  color: #000000;
+  color: #353431;
   text-align: center;
   max-width: 26vw;
   border-style: solid;
   border-color: #E99B3D;
   border-width: .5vw;
   border-radius: 1vw;
+}
+
+.recipe-card:hover {
+  border-color: #353431;
   cursor: pointer;
 }
 
-.recipe-title {
+.recipe-title, .recipe-title-favorited {
   margin-top: 1vw;
   margin-left: .5vw;
   margin-right: .5vw;
+}
+
+.recipe-title-favorited {
+  margin-bottom: 0vw;
 }
 
 .recipe-image-all {
@@ -172,7 +186,7 @@ font-size: 1.1vw;
 .favorite-button:hover, .cook-button:hover, .add-missing-button:hover, .remove-button:hover {
   cursor: pointer;
   color: #E99B3D;
-  border-color: #000000;
+  border-color: #353431;
 }
 
 .hidden {
@@ -192,6 +206,7 @@ font-size: 1.1vw;
 .single-recipe-image {
   height: 25vw;
   width: 38vw;
+  border-radius: 1vw;
 }
 
 .top-right-mini-container {
@@ -199,8 +214,8 @@ font-size: 1.1vw;
   margin-left: 4vw;
 }
 
-.pantry-update-area {
-
+.add-missing-button {
+  margin-left: .5vw;
 }
 
 .pantry-update-info {
@@ -217,6 +232,7 @@ font-size: 1.1vw;
 }
 
 .favorite-button {
+  height: 2vw;
   width: 10vw;
 }
 
