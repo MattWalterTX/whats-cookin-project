@@ -86,7 +86,6 @@ const pantryList = document.querySelector('#pantry-list');
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
-favoriteRecipesGrid.addEventListener('click', showRecipe);
 mainSearchBar.addEventListener('keyup', filterRecipe);
 favoritedSearchBar.addEventListener('keyup', searchFavoritedRecipes)
 favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
@@ -95,10 +94,12 @@ homeButton.addEventListener('click', showAllRecipes);
 pantryButton.addEventListener('click', showPantry);
 
 
+
+
 // Functions
 function loadUser() {
   currentUser = new User(
-    //usersData[0]
+
     usersData[Math.floor(Math.random() * usersData.length)]
   );
   recipeCards = recipeData.map(recipe => {
@@ -139,6 +140,10 @@ function renderFavoriteRecipes(data) {
       </h3>
     <button class="remove-button" id="${recipe.id}">Remove from Favorites</button>
   </li>`).join('');
+  const favoriteRecipeImagesAll = document.querySelectorAll('.recipe-image-all')
+  favoriteRecipeImagesAll.forEach(image => {
+    image.addEventListener('click', showRecipe)
+  })
   const removeFromFavoritesButton = document.querySelectorAll('.remove-button');
   removeFromFavoritesButton.forEach(button => {
     button.addEventListener('click', removeFromFavorites);
