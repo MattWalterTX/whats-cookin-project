@@ -120,7 +120,7 @@ function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
       <h3 class="" id="recipe-title">${recipe.name}</h3>
-      <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+      <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}" alt="${recipe.name}">
       <h3 class="recipe-tags-all">
         ${recipe.tags}
       </h3>
@@ -132,7 +132,7 @@ function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
     <h3 class="" id="recipe-title">${recipe.name}</h3>
-    <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+    <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}" alt="${recipe.name}">
     <h3 class="recipe-tags-all">
         ${recipe.tags}
       </h3>
@@ -209,7 +209,7 @@ function showRecipe(event) {
 
   singleRecipe.innerHTML = '';
   singleRecipe.innerHTML = 
-    `<img src="${recipe.image}"></img>
+    `<img src="${recipe.image}" alt=""${recipe.name}></img>
     <h2 class="single-recipe-name">${recipe.name}</h2>
     <button class="favorite-button" id="${recipe.id}">Add to Favorites</button>
     <section class="single-recipe-contents">
