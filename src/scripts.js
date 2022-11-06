@@ -86,7 +86,6 @@ const pantryList = document.querySelector('#pantry-list');
 // Event Listeners
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
-favoriteRecipesGrid.addEventListener('click', showRecipe);
 mainSearchBar.addEventListener('keyup', filterRecipe);
 favoritedSearchBar.addEventListener('keyup', searchFavoritedRecipes)
 favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
@@ -95,10 +94,12 @@ homeButton.addEventListener('click', showAllRecipes);
 pantryButton.addEventListener('click', showPantry);
 
 
+
+
 // Functions
 function loadUser() {
   currentUser = new User(
-    //usersData[0]
+
     usersData[Math.floor(Math.random() * usersData.length)]
   );
   recipeCards = recipeData.map(recipe => {
@@ -120,8 +121,8 @@ function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = '';
   allRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
-      <h3 class="recipe-title" id="recipe-title">${recipe.name}</h3>
-      <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}">
+      <h3 class="" id="recipe-title">${recipe.name}</h3>
+      <img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}" alt="${recipe.name}">
       <h3 class="recipe-tags-all">
         ${recipe.tags}
       </h3>
@@ -139,6 +140,10 @@ function renderFavoriteRecipes(data) {
       </h3>
     <button class="remove-button" id="${recipe.id}">Remove from Favorites</button>
   </li>`).join('');
+  const favoriteRecipeImagesAll = document.querySelectorAll('.recipe-image-all')
+  favoriteRecipeImagesAll.forEach(image => {
+    image.addEventListener('click', showRecipe)
+  })
   const removeFromFavoritesButton = document.querySelectorAll('.remove-button');
   removeFromFavoritesButton.forEach(button => {
     button.addEventListener('click', removeFromFavorites);
@@ -174,14 +179,16 @@ function renderPantry() {
 
 function filterRecipe() {
   const recipeSearch = mainSearchBar.value;
-  const filteredRecipes = newRecipeRepo.filterByName(recipeSearch);
-  renderAllRecipes(filteredRecipes);
+  let filteredRecipesByName = newRecipeRepo.filterByName(recipeSearch);
+  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(newRecipeRepo.filterByTag(recipeSearch))
+  renderAllRecipes(filteredRecipesByNameAndTag);
 }
 
 function searchFavoritedRecipes() {
   const recipeSearch = favoritedSearchBar.value;
-  const filteredRecipes = currentUser.filterByName(recipeSearch);
-  renderFavoriteRecipes(filteredRecipes)
+  let filteredRecipesByName = currentUser.filterByName(recipeSearch);
+  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(currentUser.filterByTag(recipeSearch))
+  renderFavoriteRecipes(filteredRecipesByNameAndTag);
 }
 
 function showRecipe(event) {
@@ -209,7 +216,7 @@ function showRecipe(event) {
   singleRecipe.innerHTML = '';
   singleRecipe.innerHTML = 
     `<div class="top-section-container">
-    <img class="single-recipe-image" src="${recipe.image}"></img>
+    <img class="single-recipe-image" src="${recipe.image}" alt="${recipe.name}"></img>
       <div class="top-right-mini-container">
       <button class="cook-button" id="${recipe.id}">Let's Cook!</button>
         <button class="add-missing-button" id="${recipe.id}">Add Missing Ingredients to Pantry!</button>

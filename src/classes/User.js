@@ -14,20 +14,25 @@ class User {
         this.recipesToCook.push(recipe);
     };
 
-    filterByTag(tag) {
-        return this.recipesToCook.filter(recipe => recipe.tags.includes(tag));
-    };
+    filterByTag = (tag) => {
+        const filteredList = this.recipesToCook.filter(recipe => {
+          let tags = Object.values(recipe.tags);
+          if (tags.includes(tag.toLowerCase())) {
+            return recipe
+          };
+        });
+        return filteredList
+      };
 
     filterByName = (name) => {
         const filteredList = this.recipesToCook.filter(recipe => {
-          let lowerCaseRecipeName = recipe.name.toLowerCase()
+          let lowerCaseRecipeName = recipe.name.toLowerCase();
           if(name !== ' ' && lowerCaseRecipeName.includes(name.toLowerCase())) {
             return recipe
-          }
-        })
-        console.log(filteredList)
+          };
+        });
         return filteredList
-      }
+      };
 
     addToPantry(recipe) {
         const pantryStatus = this.checkPantry(recipe);
@@ -65,9 +70,6 @@ class User {
             acc.push(ing.ingredient);
             return acc;
         }, []);
-
-        //console.log(pantryIdsArray)
-
         recipe.ingredients.forEach(rIng => {
             if(!pantryIdsArray.includes(rIng.id)) {
                 let obj = {};
@@ -88,7 +90,7 @@ class User {
                         obj['pantryQ'] = pIng.amount;
                         obj['unit'] = rIng.quantity.unit;
                         pantryStatus.push(obj);
-                    }
+                    };
                     if(pIng.ingredient === rIng.id && pIng.amount < rIng.quantity.amount) {
                         let obj = {};
                         obj['id'] = rIng.id;
@@ -101,28 +103,25 @@ class User {
                 } ;
             });
         });
-        //console.log(pantryStatus);
         return pantryStatus;
     };
+
     cookRecipe(recipe) {
-        const pantry = this.checkPantry(recipe)
-        console.log(pantry)
-        const mathTotals = this.pantryMathing(pantry)
-        console.log(mathTotals)
+        const pantry = this.checkPantry(recipe);
+        const mathTotals = this.pantryMathing(pantry);
         if (mathTotals.every(total => total >= 0)) {
-            console.log('Cooking!')
+            return true
         } else {
-            console.log('booooo')
-        }
-        // if good cook it
-       
-    }
+            return false
+        };
+    };
+
     pantryMathing(data) {
         const totals = data.map(ingredient => {
             return ingredient.pantryQ - ingredient.recipeQ
-        })
+        });
         return totals
-    }
+    };
 };
 
 export default User
