@@ -452,8 +452,8 @@ recipesList = [
       "side dish"
     ]
   }
-]
+];
 
 module.exports = {
   recipesList 
-}
+};
