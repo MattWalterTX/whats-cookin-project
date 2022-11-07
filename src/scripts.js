@@ -1,9 +1,6 @@
 //IMPORTS
 import './styles.css';
-import apiCalls from './apiCalls';
-import gatherData from './apiCalls';
 import './images/turing-logo.png';
-import Ingredient from './classes/Ingredient.js';
 import Recipe from './classes/Recipe.js';
 import RecipeRepository from './classes/RecipeRepository.js';
 import User from './classes/User.js';
@@ -19,6 +16,12 @@ let currentRecipe;
 let pantryUpdateArea;
 
 //API CALLS
+let gatherData = (url) => {
+  return fetch(url)
+    .then(response => response.json())
+    .catch(err => console.log(err))
+};
+
 function instantiateData() {
   Promise.all([
     gatherData('http://localhost:3001/api/v1/users'),
