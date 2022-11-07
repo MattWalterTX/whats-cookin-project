@@ -3,89 +3,68 @@
   box-sizing: border-box;
   font-family: 'Lora';
   color: #353431;
-}
-
-.top-button {
-border: none;
-font-style: italic;
-font-size: 1.1vw;
-}
-
-.top-button:hover {
-  cursor: pointer;
-  color: #E99B3D;
-  text-decoration: underline;
-}
-
-.main-search-bar, .favorited-search-bar {
-font-style: italic;
-border: 2px;
-border-style: solid;
-border-radius: 1vw;
-border-color: #E99B3D;
-font-style: italic;
-font-size: .9vw;
-}
+};
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 12px;
-}
+};
 
 .title-area {
   display: flex;
   align-items: center;
-}
-
-.personalized-greeting { 
-  background: rgba(0, 0, 0, .6);
-  border-radius: 1vw;
-  text-align: center;
-  border-left: 1vw;
-  border-right: 1vw;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, .001);
-  color: #FFFDF6;
-}
+};
 
 .turing-logo {
   height: 3vw;
   width: 3vw;
   margin-right: 1.3vw;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  height: 100vw;
-}
+};
 
 nav {
   display: flex;
   justify-content: space-between;
   width: 40%;
   height: 2.5vw;
-}
+};
 
-.search-bar {
-  width: 20vw;
-}
+.top-button {
+  border: none;
+  font-style: italic;
+  font-size: 1.1vw;
+  };
+  
+.top-button:hover {
+  cursor: pointer;
+  color: #E99B3D;
+  text-decoration: underline;
+};
 
-.home-container {
-  display:flex;
+.main-search-bar, .favorited-search-bar {
+  font-style: italic;
+  border: 2px;
+  border-style: solid;
+  border-radius: 1vw;
+  border-color: #E99B3D;
+  font-style: italic;
+  font-size: .9vw;
+  width: 16vw;
+  };
+
+main {
+  display: flex;
   flex-direction: column;
   height: 100vw;
-}
+};
 
 .greeting-area {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 22vw;
-  
-}
+};
 
 .greeting {
   display: flex;
@@ -101,18 +80,40 @@ nav {
   background-repeat: no-repeat;
   background-size: 80vw 22vw;
   border-radius: 5vw;
-}
+};
+
+.personalized-greeting { 
+  background: rgba(0, 0, 0, .6);
+  border-radius: 1vw;
+  text-align: center;
+  border-left: 1vw;
+  border-right: 1vw;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, .001);
+  color: #FFFDF6;
+};
+
+
+.home-container {
+  display:flex;
+  flex-direction: column;
+  height: 100vw;
+};
 
 .all-recipes-header {
   margin-top: 3vw;
   font-size: 1.8vw;
-}
+};
 
 .recipe-header-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
+};
+
+.saved-recipes-header {
+  margin-left: 2vw;
+};
 
 .card-grid {
   display: flex;
@@ -123,11 +124,7 @@ nav {
   color: transparent;
   padding-left: 0;
   height: 100vw;
-}
-
-.saved-recipes-header {
-  margin-left: 2vw;
-}
+};
 
 .recipe-card {
   display: flex;
@@ -146,33 +143,42 @@ nav {
   border-color: #E99B3D;
   border-width: .5vw;
   border-radius: 1vw;
-}
+  pointer-events: none;
+};
 
-.recipe-card:hover {
-  border-color: #353431;
-  cursor: pointer;
-}
-
-.recipe-title, .recipe-title-favorited {
+.recipe-title-all, .recipe-title-favorited {
+  font-size: 1.2vw;
+  font-weight: bold;
   margin-top: 1vw;
   margin-left: .5vw;
   margin-right: .5vw;
-}
+  margin-bottom: 1vw;
+};
+
+.image-button {
+  border: none;
+  pointer-events: auto;
+};
+
+.recipe-card:hover {
+  border-color: #353431;
+};
 
 .recipe-title-favorited {
   margin-bottom: 0vw;
-}
+};
 
 .recipe-image-all {
   margin-bottom: 0vw;
   height: 12vw;
   width: 23vw;
   border-radius: 1vw;
-}
+  cursor: pointer;
+};
 
 .recipe-tags-all {
   font-size: .8vw;
-}
+};
 
 .favorite-button, .cook-button, .add-missing-button, .remove-button {
 border: 2px;
@@ -181,42 +187,38 @@ border-radius: 1vw;
 border-color: #E99B3D;
 font-style: italic;
 font-size: 1.1vw;
-}
+};
 
 .favorite-button:hover, .cook-button:hover, .add-missing-button:hover, .remove-button:hover {
   cursor: pointer;
   color: #E99B3D;
   border-color: #353431;
-}
-
-.hidden {
-  display: none!important;
-}
+};
 
 .single-recipe {
   display: flex;
   flex-direction: column;
-}
+};
 
 .top-section-container {
   display: flex;
   flex-direction: row;
-}
+};
 
 .single-recipe-image {
   height: 25vw;
   width: 38vw;
   border-radius: 1vw;
-}
+};
 
 .top-right-mini-container {
   width: 60%;
   margin-left: 4vw;
-}
+};
 
 .add-missing-button {
   margin-left: .5vw;
-}
+};
 
 .pantry-update-info {
   padding: 1vw;
@@ -225,17 +227,21 @@ font-size: 1.1vw;
   border-width: .5vw;
   border-radius: 1vw;
   font-size: 1.2vw;
-}
+};
 
 .single-recipe-contents {
   display: flex;
-}
+};
 
 .favorite-button {
   height: 2vw;
   width: 10vw;
-}
+};
 
 .single-recipe-contents>section {
   width: 50%;
-}
+};
+
+.hidden {
+  display: none!important;
+};
