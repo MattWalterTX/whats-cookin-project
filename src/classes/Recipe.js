@@ -40,4 +40,4 @@ class Recipe {
   };
 };
 
-export default Recipe
+export default Recipe;
