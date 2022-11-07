@@ -34,7 +34,7 @@ class User {
         return filteredList
       };
 
-    updatePantry(recipe) {
+    addToPantry(recipe) {
         const pantryStatus = this.checkPantry(recipe);
         return pantryStatus.forEach(objIng => {
             if(objIng.stockStatus === 'not enough') {
@@ -53,32 +53,43 @@ class User {
         });
     };
 
-    addToPantry(recipe) {
-        const pantryStatus = this.checkPantry(recipe)
-        const forPostRequest = pantryStatus.filter(userIng => {
-            if (userIng.stockStatus !== 'sufficient') {
-                return userIng
-            }
-        })
-        .map(userIng => {
-                return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.recipeQ - userIng.pantryQ)}
-        })
-        return forPostRequest
-    }
+    // addToPantry(recipe) {
+    //     const pantryStatus = this.checkPantry(recipe)
+    //     const forPostRequest = pantryStatus.filter(userIng => {
+    //         if (userIng.stockStatus !== 'sufficient') {
+    //             return userIng
+    //         }
+    //     })
+    //     .map(userIng => {
+    //             return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.recipeQ - userIng.pantryQ)}
+    //     })
+    //     return forPostRequest
+    // }
 
     removeFromPantry(recipe) {
-        const pantryStatus = this.checkPantry(recipe)
-        const forPostRequest = pantryStatus.filter(userIng => {
-            if (userIng.stockStatus === 'sufficient') {
-                return userIng
-            }
-        })
-        .map(userIng => {
-                return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.pantryQ - userIng.recipeQ)}
-        })
-        console.log(forPostRequest)
-        return forPostRequest
+        const pantryStatus = this.checkPantry(recipe);
+        return pantryStatus.forEach(objIng => {
+            return this.pantry.forEach(userIng => {
+                if(userIng.ingredient === objIng.id) {
+                    userIng.amount =  (userIng.amount - objIng.recipeQ);
+                    };
+                });
+        });
     };
+
+    // removeFromPantry(recipe) {
+    //     const pantryStatus = this.checkPantry(recipe)
+    //     const forPostRequest = pantryStatus.filter(userIng => {
+    //         if (userIng.stockStatus === 'sufficient') {
+    //             return userIng
+    //         }
+    //     })
+    //     .map(userIng => {
+    //             return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.pantryQ - userIng.recipeQ)}
+    //     })
+    //     console.log(forPostRequest)
+    //     return forPostRequest
+    // };
 
     checkPantry(recipe) {
         let pantryStatus = [];

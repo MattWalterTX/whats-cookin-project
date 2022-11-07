@@ -129,7 +129,7 @@ main {
 .recipe-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   list-style: none;
   flex-basis: 30.1%;
@@ -146,13 +146,24 @@ main {
   pointer-events: none;
 };
 
-.recipe-title-all, .recipe-title-favorited {
-  font-size: 1.2vw;
+.recipe-title-all {
+  height: 5vw;
+  font-size: 1.3vw;
   font-weight: bold;
   margin-top: 1vw;
   margin-left: .5vw;
   margin-right: .5vw;
-  margin-bottom: 1vw;
+  margin-bottom: 0vw;
+};
+
+.recipe-title-favorited {
+  height: 3vw;
+  font-size: 1vw;
+  font-weight: bold;
+  margin-top: 1vw;
+  margin-left: .5vw;
+  margin-right: .5vw;
+  margin-bottom: 0vw;
 };
 
 .image-button {
@@ -164,9 +175,9 @@ main {
   border-color: #353431;
 };
 
-.recipe-title-favorited {
+/* .recipe-title-favorited {
   margin-bottom: 0vw;
-};
+}; */
 
 .recipe-image-all {
   margin-bottom: 0vw;
@@ -177,6 +188,9 @@ main {
 };
 
 .recipe-tags-all {
+  height: 1vw;
+  margin-top: .5vw;
+  margin-bottom: .5vw;
   font-size: .8vw;
 };
 
@@ -188,6 +202,10 @@ border-color: #E99B3D;
 font-style: italic;
 font-size: 1.1vw;
 };
+
+.remove-button {
+  pointer-events: auto;
+}
 
 .favorite-button:hover, .cook-button:hover, .add-missing-button:hover, .remove-button:hover {
   cursor: pointer;

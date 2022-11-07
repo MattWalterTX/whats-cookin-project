@@ -29,8 +29,8 @@ function instantiateData() {
       ingredientsData = data[1];
       recipeData = data[2];
       loadUser();
-  })
-}
+  });
+};
 
 function modifyUserData(data) {
   fetch('http://localhost:3001/api/v1/users', {
@@ -49,17 +49,17 @@ function modifyUserData(data) {
   .catch(err => console.log(err));
 };
 
-function reloadUserDashboard() {
-  recipeCards = recipeData.map(recipe => {
-    const newCard = new Recipe (recipe);
-    return newCard
-  });
-  newRecipeRepo = new RecipeRepository (recipeCards);
-  renderUser(currentUser);
-  renderAllRecipes(recipeCards);
-  renderPantry()
-  renderFavoriteRecipes(currentUser.recipesToCook)
-}
+// function reloadUserDashboard() {
+//   recipeCards = recipeData.map(recipe => {
+//     const newCard = new Recipe (recipe);
+//     return newCard;
+//   });
+//   newRecipeRepo = new RecipeRepository (recipeCards);
+//   renderUser(currentUser);
+//   renderAllRecipes(recipeCards);
+//   renderPantry();
+//   renderFavoriteRecipes(currentUser.recipesToCook)
+// }
 
 // function updateApiData() {
 //   Promise.all([
@@ -104,7 +104,7 @@ pantryButton.addEventListener('click', showPantry);
 //FUNCTIONS
 function loadUser() {
   currentUser = new User(
-    usersData[Math.floor(Math.random() * usersData.length)]
+  usersData[Math.floor(Math.random() * usersData.length)]
   );
   recipeCards = recipeData.map(recipe => {
     const newCard = new Recipe (recipe);
@@ -153,11 +153,15 @@ function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = '';
   favoriteRecipesGrid.innerHTML = 
     data.map(recipe => `<li class="recipe-card">
-    <h3 class="recipe-title-favorited" id="recipe-title">${recipe.name}</h3>
+    <div class="title-container">
+      <h3 class="recipe-title-favorited" id="recipe-title">${recipe.name}</h3>
+    </div>
     <button class="image-button" id="${recipe.id}"><img class="recipe-image-all" id="${recipe.id}" src="${recipe.image}"></button>
-    <h3 class="recipe-tags-all">
-        ${recipe.tags}
+    <div class="tag-container">
+      <h3 class="recipe-tags-all">
+          ${recipe.tags}
       </h3>
+    </div>
     <button class="remove-button" id="${recipe.id}">Remove from Favorites</button>
   </li>`).join('');
   const imageButton = document.querySelectorAll('.image-button');
@@ -276,20 +280,15 @@ function addToFavorites(event) {
     };
   });
   if (!currentUser.recipesToCook.includes(favoritedRecipe)) {
-    currentUser.addToCookList(favoritedRecipe)
+    currentUser.addToCookList(favoritedRecipe);
   };
 };
 
 function letsCook() {
   const pantryStatus = currentUser.checkPantry(currentRecipe);
-  const insufficientArray = pantryStatus.every(obj => obj.stockStatus === 'sufficient');
-  // console.log(insufficientArray)
-  // console.log(pantryStatus)
-  if(insufficientArray) {
-    let forPostRequest = currentUser.removeFromPantry(currentRecipe);
-    forPostRequest.forEach(ing => {
-      modifyUserData(ing)
-    })
+  const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
+  if(insufficientArray.length === 0) {
+    currentUser.removeFromPantry(currentRecipe);
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`;
   }
@@ -297,8 +296,27 @@ function letsCook() {
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`;
   };
-  // updateApiData()
 };
+
+// function letsCook() {
+//   const pantryStatus = currentUser.checkPantry(currentRecipe);
+//   const insufficientArray = pantryStatus.every(obj => obj.stockStatus === 'sufficient');
+//   // console.log(insufficientArray)
+//   // console.log(pantryStatus)
+//   if(insufficientArray) {
+//     let forPostRequest = currentUser.removeFromPantry(currentRecipe);
+//     forPostRequest.forEach(ing => {
+//       modifyUserData(ing)
+//     })
+//     pantryUpdateArea.innerHTML = '';
+//     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`;
+//   }
+//   else {
+//     pantryUpdateArea.innerHTML = '';
+//     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`;
+//   };
+//   // updateApiData()
+// };
 
 function displayMissingIngredients(pantryStatus) {
   const missingIngs = [];
@@ -320,11 +338,11 @@ function addIngredients() {
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">There is nothing to add; you have all the required ingredients!</h3>`;
   }
   else {
-    currentUser.updatePantry(currentRecipe)
-    let forPostRequest = currentUser.addToPantry(currentRecipe);
-    forPostRequest.forEach(ing => {
-      modifyUserData(ing)
-    })
+    currentUser.addToPantry(currentRecipe)
+    // let forPostRequest = currentUser.addToPantry(currentRecipe);
+    // forPostRequest.forEach(ing => {
+    //   modifyUserData(ing)
+    // })
 
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Ingredients added!</h3>`;
