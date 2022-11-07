@@ -35,16 +35,16 @@ function instantiateData() {
   })
 }
 
-function modifyUserData(userId, ingredient) {
+function modifyUserData(data) {
   fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
     body: JSON.stringify({
-      userID: userId,
-      ingredientID: ingredient.id,
-      ingredientModification: (object.recipeQ - object.pantryQ)
+      userID: data.userID,
+      ingredientID: data.ingredientID,
+      ingredientModification: data.ingredientModification
     }),
     headers: {
-      'Content-Type': 'applications/json'
+      'Content-Type': 'application/json'
     }
   })
   .then(response => response.json())
@@ -290,7 +290,11 @@ function addIngredients() {
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">There is nothing to add; you have all the required ingredients!</h3>`;
   }
   else {
-    currentUser.addToPantry(currentRecipe);
+    let forPostRequest = currentUser.addToPantry(currentRecipe);
+    forPostRequest.forEach(ing => {
+      modifyUserData(ing)
+    })
+
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Ingredients added!</h3>`;
   };

@@ -31,28 +31,41 @@ class User {
             return recipe
           }
         })
-        console.log(filteredList)
         return filteredList
       }
 
+    // addToPantry(recipe) {
+    //     const pantryStatus = this.checkPantry(recipe);
+    //     return pantryStatus.forEach(objIng => {
+    //         if(objIng.stockStatus === 'not enough') {
+    //         return this.pantry.forEach(userIng => {
+    //             if(userIng.ingredient === objIng.id) {
+    //                 userIng.amount += (objIng.recipeQ - objIng.pantryQ);
+    //                 };
+    //             });
+    //         };
+    //         if(objIng.stockStatus === 'empty') {
+    //             let obj = {};
+    //             obj['ingredient'] = objIng.id;
+    //             obj['amount'] = objIng.recipeQ;
+    //             this.pantry.push(obj);
+    //         };
+    //     });
+    // };
+
     addToPantry(recipe) {
-        const pantryStatus = this.checkPantry(recipe);
-        return pantryStatus.forEach(objIng => {
-            if(objIng.stockStatus === 'not enough') {
-            return this.pantry.forEach(userIng => {
-                if(userIng.ingredient === objIng.id) {
-                    userIng.amount += (objIng.recipeQ - objIng.pantryQ);
-                    };
-                });
-            };
-            if(objIng.stockStatus === 'empty') {
-                let obj = {};
-                obj['ingredient'] = objIng.id;
-                obj['amount'] = objIng.recipeQ;
-                this.pantry.push(obj);
-            };
-        });
-    };
+        // console.log(recipe.ingredients)
+        const pantryStatus = this.checkPantry(recipe)
+        const forPostRequest = pantryStatus.filter(userIng => {
+            if (userIng.stockStatus !== 'sufficient') {
+                return userIng
+            }
+        })
+        .map(userIng => {
+                return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.recipeQ - userIng.pantryQ)}
+        })
+        return forPostRequest
+    }
 
     removeFromPantry(recipe) {
         const pantryStatus = this.checkPantry(recipe);
