@@ -275,22 +275,19 @@ function addToFavorites(event) {
 
 function letsCook() {
   const pantryStatus = currentUser.checkPantry(currentRecipe);
-  const insufficientArray = pantryStatus.every(obj => obj.stockStatus === 'sufficient');
-  // console.log(insufficientArray)
-  // console.log(pantryStatus)
-  if(insufficientArray) {
-    let forPostRequest = currentUser.removeFromPantry(currentRecipe);
-    forPostRequest.forEach(ing => {
-      modifyUserData(ing)
-    })
+  const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
+  if(insufficientArray.length === 0) {
+    currentUser.removeFromPantry(currentRecipe);
+    pantryStatus.forEach(ing => {
+      subtractFromUserData(ing)
+    });
     pantryUpdateArea.innerHTML = '';
-    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`
+    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`;
   }
   else {
     pantryUpdateArea.innerHTML = '';
-    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`
+    pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`;
   };
-  // updateApiData()
 };
 
 function displayMissingIngredients(pantryStatus) {
@@ -298,11 +295,11 @@ function displayMissingIngredients(pantryStatus) {
   pantryStatus.forEach(obj => {
     const correctIng = ingredientsData.find(ing => ing.id === obj.id);
     if(obj.stockStatus === 'not enough' || obj.stockStatus === 'empty') {
-      missingIngs.push(` ${(obj.recipeQ - obj.pantryQ)} ${obj.unit} of ${correctIng.name}`)
-    }
-  })
-    missingIngs[missingIngs.length - 1] = ` and ${missingIngs[missingIngs.length - 1]}`
-    return `You are missing: ${missingIngs}. Add them to your pantry to cook the recipe!`
+      missingIngs.push(` ${(obj.recipeQ - obj.pantryQ)} ${obj.unit} of ${correctIng.name}`);
+    };
+  });
+    missingIngs[missingIngs.length - 1] = ` and ${missingIngs[missingIngs.length - 1]}`;
+    return `You are missing: ${missingIngs}. Add them to your pantry to cook the recipe!`;
 };
 
 function addIngredients() {
@@ -313,17 +310,49 @@ function addIngredients() {
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">There is nothing to add; you have all the required ingredients!</h3>`;
   }
   else {
-    currentUser.updatePantry(currentRecipe)
-    let forPostRequest = currentUser.addToPantry(currentRecipe);
-    forPostRequest.forEach(ing => {
-      modifyUserData(ing)
-    })
+    currentUser.addToPantry(currentRecipe)
+    insufficientArray.forEach(ing => {
+      addToUserData(ing)
+    });
 
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Ingredients added!</h3>`;
   };
-  // updateApiData()
-}
+};
+
+function addToUserData(data) {
+  const num = data.recipeQ - data.pantryQ;
+  fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    body: JSON.stringify({
+      userID: currentUser.id,
+      ingredientID: data.id,
+      ingredientModification: num
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .catch(err => console.log(err));
+};
+
+function subtractFromUserData(data) {
+  const num = -data.recipeQ;
+  fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    body: JSON.stringify({
+      userID: currentUser.id,
+      ingredientID: data.id,
+      ingredientModification: num
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .catch(err => console.log(err));
+};
 
 function viewFavoriteRecipes() {
   greeting.classList.add('hidden');
