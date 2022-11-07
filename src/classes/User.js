@@ -53,19 +53,6 @@ class User {
         });
     };
 
-    // addToPantry(recipe) {
-    //     const pantryStatus = this.checkPantry(recipe)
-    //     const forPostRequest = pantryStatus.filter(userIng => {
-    //         if (userIng.stockStatus !== 'sufficient') {
-    //             return userIng
-    //         }
-    //     })
-    //     .map(userIng => {
-    //             return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.recipeQ - userIng.pantryQ)}
-    //     })
-    //     return forPostRequest
-    // }
-
     removeFromPantry(recipe) {
         const pantryStatus = this.checkPantry(recipe);
         return pantryStatus.forEach(objIng => {
@@ -76,20 +63,6 @@ class User {
                 });
         });
     };
-
-    // removeFromPantry(recipe) {
-    //     const pantryStatus = this.checkPantry(recipe)
-    //     const forPostRequest = pantryStatus.filter(userIng => {
-    //         if (userIng.stockStatus === 'sufficient') {
-    //             return userIng
-    //         }
-    //     })
-    //     .map(userIng => {
-    //             return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.pantryQ - userIng.recipeQ)}
-    //     })
-    //     console.log(forPostRequest)
-    //     return forPostRequest
-    // };
 
     checkPantry(recipe) {
         let pantryStatus = [];
@@ -141,13 +114,6 @@ class User {
         } else {
             return false
         };
-    };
-
-    pantryMathing(data) {
-        const totals = data.map(ingredient => {
-            return ingredient.pantryQ - ingredient.recipeQ
-        });
-        return totals
     };
 };
 

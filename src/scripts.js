@@ -32,50 +32,41 @@ function instantiateData() {
   });
 };
 
-function modifyUserData(data) {
+function addToUserData(data) {
+  const num = data.recipeQ - data.pantryQ;
   fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
     body: JSON.stringify({
-      userID: data.userID,
-      ingredientID: data.ingredientID,
-      ingredientModification: data.ingredientModification
+      userID: currentUser.id,
+      ingredientID: data.id,
+      ingredientModification: num
     }),
     headers: {
       'Content-Type': 'application/json'
     }
   })
   .then(response => response.json())
-  .then(reloadUserDashboard())
   .catch(err => console.log(err));
 };
 
-// function reloadUserDashboard() {
-//   recipeCards = recipeData.map(recipe => {
-//     const newCard = new Recipe (recipe);
-//     return newCard;
-//   });
-//   newRecipeRepo = new RecipeRepository (recipeCards);
-//   renderUser(currentUser);
-//   renderAllRecipes(recipeCards);
-//   renderPantry();
-//   renderFavoriteRecipes(currentUser.recipesToCook)
-// }
+function subtractFromUserData(data) {
+  const num = -data.recipeQ;
+  fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    body: JSON.stringify({
+      userID: currentUser.id,
+      ingredientID: data.id,
+      ingredientModification: num
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .catch(err => console.log(err));
+};
 
-// function updateApiData() {
-//   Promise.all([
-//     gatherData('http://localhost:3001/api/v1/users'),
-//     gatherData('http://localhost:3001/api/v1/ingredients'),
-//     gatherData('http://localhost:3001/api/v1/recipes')
-//   ]).then(data => {
-//       usersData = data[0];
-//       ingredientsData = data[1];
-//       recipeData = data[2];
-//       reloadUserDashboard();
-//   })
-// }
-
-
-// Query Selectors
+//QUERY SELECTORS
 const allRecipesGrid = document.querySelector('#all-card-grid');
 const favoriteRecipesGrid = document.querySelector('#fave-card-grid');
 const greeting = document.querySelector('#greeting');
@@ -289,6 +280,9 @@ function letsCook() {
   const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
   if(insufficientArray.length === 0) {
     currentUser.removeFromPantry(currentRecipe);
+    pantryStatus.forEach(ing => {
+      subtractFromUserData(ing)
+    });
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`;
   }
@@ -297,26 +291,6 @@ function letsCook() {
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`;
   };
 };
-
-// function letsCook() {
-//   const pantryStatus = currentUser.checkPantry(currentRecipe);
-//   const insufficientArray = pantryStatus.every(obj => obj.stockStatus === 'sufficient');
-//   // console.log(insufficientArray)
-//   // console.log(pantryStatus)
-//   if(insufficientArray) {
-//     let forPostRequest = currentUser.removeFromPantry(currentRecipe);
-//     forPostRequest.forEach(ing => {
-//       modifyUserData(ing)
-//     })
-//     pantryUpdateArea.innerHTML = '';
-//     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`;
-//   }
-//   else {
-//     pantryUpdateArea.innerHTML = '';
-//     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`;
-//   };
-//   // updateApiData()
-// };
 
 function displayMissingIngredients(pantryStatus) {
   const missingIngs = [];
@@ -339,10 +313,9 @@ function addIngredients() {
   }
   else {
     currentUser.addToPantry(currentRecipe)
-    // let forPostRequest = currentUser.addToPantry(currentRecipe);
-    // forPostRequest.forEach(ing => {
-    //   modifyUserData(ing)
-    // })
+    insufficientArray.forEach(ing => {
+      addToUserData(ing)
+    });
 
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Ingredients added!</h3>`;
