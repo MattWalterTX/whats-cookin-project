@@ -107,18 +107,6 @@ function loadUser() {
   renderPantry();
 };
 
-function reloadUserDashboard() {
-  recipeCards = recipeData.map(recipe => {
-    const newCard = new Recipe (recipe);
-    return newCard;
-  });
-  newRecipeRepo = new RecipeRepository (recipeCards);
-  renderUser(currentUser);
-  renderAllRecipes(recipeCards);
-  renderPantry();
-  renderFavoriteRecipes(currentUser.recipesToCook);
-};
-
 function renderUser(user) {
   greeting.innerHTML = '';
   greeting.innerHTML = `<h1 class="personalized-greeting"> Welcome to What\'s Cookin\',<br>${user.name}!</h1>`;
@@ -354,5 +342,3 @@ function showPantry() {
   pantryView.classList.remove('hidden');
   renderPantry();
 };
-
-export { modifyUserData };
