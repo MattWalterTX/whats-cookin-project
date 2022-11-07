@@ -65,6 +65,19 @@ function reloadUserDashboard() {
   renderFavoriteRecipes(currentUser.recipesToCook)
 }
 
+// function updateApiData() {
+//   Promise.all([
+//     gatherData('http://localhost:3001/api/v1/users'),
+//     gatherData('http://localhost:3001/api/v1/ingredients'),
+//     gatherData('http://localhost:3001/api/v1/recipes')
+//   ]).then(data => {
+//       usersData = data[0];
+//       ingredientsData = data[1];
+//       recipeData = data[2];
+//       reloadUserDashboard();
+//   })
+// }
+
 
 // Query Selectors
 const allRecipesGrid = document.querySelector('#all-card-grid');
@@ -98,7 +111,6 @@ pantryButton.addEventListener('click', showPantry);
 // Functions
 function loadUser() {
   currentUser = new User(
-    //usersData[0]
     usersData[Math.floor(Math.random() * usersData.length)]
   );
   recipeCards = recipeData.map(recipe => {
@@ -258,9 +270,14 @@ function addToFavorites(event) {
 
 function letsCook() {
   const pantryStatus = currentUser.checkPantry(currentRecipe);
-  const insufficientArray = pantryStatus.filter(obj => obj.stockStatus === 'not enough' || obj.stockStatus === 'empty');
-  if(insufficientArray.length === 0) {
-    currentUser.removeFromPantry(currentRecipe);
+  const insufficientArray = pantryStatus.every(obj => obj.stockStatus === 'sufficient');
+  // console.log(insufficientArray)
+  // console.log(pantryStatus)
+  if(insufficientArray) {
+    let forPostRequest = currentUser.removeFromPantry(currentRecipe);
+    forPostRequest.forEach(ing => {
+      modifyUserData(ing)
+    })
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Recipe cooked! Ingredients have been removed from your pantry.</h3>`
   }
@@ -268,6 +285,7 @@ function letsCook() {
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">${displayMissingIngredients(pantryStatus)}</h3>`
   };
+  // updateApiData()
 };
 
 function displayMissingIngredients(pantryStatus) {
@@ -290,6 +308,7 @@ function addIngredients() {
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">There is nothing to add; you have all the required ingredients!</h3>`;
   }
   else {
+    currentUser.updatePantry(currentRecipe)
     let forPostRequest = currentUser.addToPantry(currentRecipe);
     forPostRequest.forEach(ing => {
       modifyUserData(ing)
@@ -298,6 +317,7 @@ function addIngredients() {
     pantryUpdateArea.innerHTML = '';
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">Ingredients added!</h3>`;
   };
+  // updateApiData()
 }
 
 function viewFavoriteRecipes() {
