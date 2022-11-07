@@ -1,8 +1,6 @@
 import './styles.css';
-import apiCalls from './apiCalls';
 import gatherData from './apiCalls';
 import './images/turing-logo.png';
-import Ingredient from './classes/Ingredient.js';
 import Recipe from './classes/Recipe.js';
 import RecipeRepository from './classes/RecipeRepository.js';
 import User from './classes/User.js';
@@ -16,10 +14,6 @@ let newRecipeRepo;
 let recipeCards;
 let currentRecipe;
 let pantryUpdateArea;
-
-function makeAllHidden() {
-  recipeGrid.classList.toggle('hidden');
-}
 
 // Declare function to instantiate all of our data to dashboard on load/ refresh.
 function instantiateData() {
@@ -49,9 +43,8 @@ function modifyUserData(data) {
   })
   .then(response => response.json())
   .then(reloadUserDashboard())
-  .catch(err => console.log(err))
-  //we'll have to call a user method here to reflect our changes to the user class's pantry
-}
+  .catch(err => console.log(err));
+};
 
 function reloadUserDashboard() {
   recipeCards = recipeData.map(recipe => {
@@ -61,23 +54,9 @@ function reloadUserDashboard() {
   newRecipeRepo = new RecipeRepository (recipeCards);
   renderUser(currentUser);
   renderAllRecipes(recipeCards);
-  renderPantry()
-  renderFavoriteRecipes(currentUser.recipesToCook)
-}
-
-// function updateApiData() {
-//   Promise.all([
-//     gatherData('http://localhost:3001/api/v1/users'),
-//     gatherData('http://localhost:3001/api/v1/ingredients'),
-//     gatherData('http://localhost:3001/api/v1/recipes')
-//   ]).then(data => {
-//       usersData = data[0];
-//       ingredientsData = data[1];
-//       recipeData = data[2];
-//       reloadUserDashboard();
-//   })
-// }
-
+  renderPantry();
+  renderFavoriteRecipes(currentUser.recipesToCook);
+};
 
 // Query Selectors
 const allRecipesGrid = document.querySelector('#all-card-grid');
@@ -86,11 +65,11 @@ const greeting = document.querySelector('#greeting');
 const homeView = document.querySelector('.home-view');
 const savedRecipesView = document.querySelector('.save-view');
 const singleRecipe = document.querySelector('.single-recipe');
-const favoritesNavButton = document.querySelector('#saved-button')
+const favoritesNavButton = document.querySelector('#saved-button');
 const savedRecipesGrid = document.querySelector('.save-view');
 const pantryView = document.querySelector('.pantry-view');
 const mainSearchBar = document.querySelector('.main-search-bar');
-const favoritedSearchBar = document.querySelector('.favorited-search-bar')
+const favoritedSearchBar = document.querySelector('.favorited-search-bar');
 const favoriteButton = document.querySelector('.favorite-button');
 const homeButton = document.querySelector('#buttonOfHome');
 const pantryButton = document.querySelector('#pantry-button');
@@ -100,14 +79,11 @@ const pantryList = document.querySelector('#pantry-list');
 window.addEventListener('load', instantiateData());
 allRecipesGrid.addEventListener('click', showRecipe);
 mainSearchBar.addEventListener('keyup', filterRecipe);
-favoritedSearchBar.addEventListener('keyup', searchFavoritedRecipes)
-favoritesNavButton.addEventListener('click', viewFavoriteRecipes)
+favoritedSearchBar.addEventListener('keyup', searchFavoritedRecipes);
+favoritesNavButton.addEventListener('click', viewFavoriteRecipes);
 favoriteButton.addEventListener('click', addToFavorites);
 homeButton.addEventListener('click', showAllRecipes);
 pantryButton.addEventListener('click', showPantry);
-
-
-
 
 // Functions
 function loadUser() {
@@ -121,13 +97,13 @@ function loadUser() {
   newRecipeRepo = new RecipeRepository (recipeCards);
   renderUser(currentUser);
   renderAllRecipes(recipeCards);
-  renderPantry()
-}
+  renderPantry();
+};
 
 function renderUser(user) {
   greeting.innerHTML = '';
   greeting.innerHTML = `<h1 class="personalized-greeting"> Welcome to What\'s Cookin\',<br>${user.name}!</h1>`;
-}
+};
 
 function renderAllRecipes(data) {
   allRecipesGrid.innerHTML = '';
@@ -139,7 +115,7 @@ function renderAllRecipes(data) {
         ${recipe.tags}
       </h3>
     </li>`).join('');
-}
+};
 
 function renderFavoriteRecipes(data) {
   favoriteRecipesGrid.innerHTML = '';
@@ -151,57 +127,55 @@ function renderFavoriteRecipes(data) {
         ${recipe.tags}
       </h3>
     <button class="remove-button" id="${recipe.id}">Remove from Favorites</button>
-  </li>`).join('');
-  const favoriteRecipeImagesAll = document.querySelectorAll('.recipe-image-all')
+    </li>`).join('');
+  const favoriteRecipeImagesAll = document.querySelectorAll('.recipe-image-all');
   favoriteRecipeImagesAll.forEach(image => {
-    image.addEventListener('click', showRecipe)
-  })
+    image.addEventListener('click', showRecipe);
+  });
   const removeFromFavoritesButton = document.querySelectorAll('.remove-button');
   removeFromFavoritesButton.forEach(button => {
     button.addEventListener('click', removeFromFavorites);
-  })
-}
+  });
+};
 
 function removeFromFavorites(event) {
   let recipeToRemove = currentUser.recipesToCook.findIndex(recipe => {
     return recipe.id === parseInt(event.target.id)
-  })
-  currentUser.recipesToCook.splice(recipeToRemove, 1)
-  renderFavoriteRecipes(currentUser.recipesToCook)
-}
+  });
+  currentUser.recipesToCook.splice(recipeToRemove, 1);
+  renderFavoriteRecipes(currentUser.recipesToCook);
+};
 
 function renderPantry() {
   const render = currentUser.pantry.map(ing => {
     let newIng = ingredientsData.find(i => i.id === ing.ingredient);
     let recMatch = recipeData.find(recipe => recipe.ingredients.find(z => z.id === ing.ingredient));
-    let newUnit = recMatch.ingredients.find(ingred => ingred.id === ing.ingredient)
-
+    let newUnit = recMatch.ingredients.find(ingred => ingred.id === ing.ingredient);
     const newObj = {
       name: (newIng && newIng.name) || "Undefined",
-      //should that be lowercase "undefined"? not sure if that makes a diff.
       amount: ing.amount,
       units: newUnit.quantity.unit
-    }
+    };
     return `<ul>${newObj.name}: ${newObj.amount} ${newObj.units}</ul>`
   });
   pantryList.innerHTML = '';
   pantryList.innerHTML = 
-    `${render.join('')}`
-}
+    `${render.join('')}`;
+};
 
 function filterRecipe() {
   const recipeSearch = mainSearchBar.value;
   let filteredRecipesByName = newRecipeRepo.filterByName(recipeSearch);
-  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(newRecipeRepo.filterByTag(recipeSearch))
+  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(newRecipeRepo.filterByTag(recipeSearch));
   renderAllRecipes(filteredRecipesByNameAndTag);
-}
+};
 
 function searchFavoritedRecipes() {
   const recipeSearch = favoritedSearchBar.value;
   let filteredRecipesByName = currentUser.filterByName(recipeSearch);
-  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(currentUser.filterByTag(recipeSearch))
+  let filteredRecipesByNameAndTag = filteredRecipesByName.concat(currentUser.filterByTag(recipeSearch));
   renderFavoriteRecipes(filteredRecipesByNameAndTag);
-}
+};
 
 function showRecipe(event) {
   homeView.classList.add('hidden');
@@ -212,11 +186,9 @@ function showRecipe(event) {
   const recipe = newRecipeRepo.recipes.find(recipe => {
     return recipe.id === parseInt(event.target.id)
   });
-
   currentRecipe = newRecipeRepo.recipes.find(recipe => {
     return recipe.id === parseInt(event.target.id)
   });
-
   const ingredients = recipe.ingredients.map(ing => {
     const foundIng = ingredientsData.find(i => i.id === ing.id);
     return `<li>${foundIng.name}: ${ing.quantity.amount} ${ing.quantity.unit}</li>`
@@ -260,18 +232,18 @@ function showRecipe(event) {
   favoriteButton.addEventListener('click', addToFavorites);
   cookButton.addEventListener('click', letsCook);
   addIngsButton.addEventListener('click', addIngredients);
-}
+};
 
 function addToFavorites(event) {
   let favoritedRecipe = newRecipeRepo.recipes.find(recipe => {
     if (recipe.id === parseInt(event.target.id)) {
       return recipe
-    }
-  })
+    };
+  });
   if (!currentUser.recipesToCook.includes(favoritedRecipe)) {
     currentUser.addToCookList(favoritedRecipe)
-  }
-}
+  };
+};
 
 function letsCook() {
   const pantryStatus = currentUser.checkPantry(currentRecipe);
@@ -310,7 +282,7 @@ function addIngredients() {
     pantryUpdateArea.innerHTML = `<h3 class="pantry-update-info">There is nothing to add; you have all the required ingredients!</h3>`;
   }
   else {
-    currentUser.addToPantry(currentRecipe)
+    currentUser.addToPantry(currentRecipe);
     insufficientArray.forEach(ing => {
       addToUserData(ing)
     });
@@ -362,17 +334,8 @@ function viewFavoriteRecipes() {
   pantryView.classList.add('hidden');
   savedRecipesView.classList.remove('hidden');
   favoritedSearchBar.classList.remove('hidden');
-  renderFavoriteRecipes(currentUser.recipesToCook)
-}
-
-// As a user, I should be able to filter recipes by a tag. (Extension option: by multiple tags)
-// render page view/ unhide form of grid containing all recipe card objects WITH SELECTED TAG for All Recipes Page display (may as well reuse code for render?)
-// invoke with searchbar handler? Maybe easier to set a static list of all tag names to use as preset 'filters'? probably not.
-// invoke on recipe page with handler on click of tag name
-
-
-// As a user, I should be able to search recipes by their name. (Extension option: by name or ingredients)
-// searchbar should have a handler to search all recipes and filter by entered/ selected name OR tag
+  renderFavoriteRecipes(currentUser.recipesToCook);
+};
 
 function showAllRecipes() {
   greeting.classList.remove('hidden');
@@ -381,19 +344,19 @@ function showAllRecipes() {
   pantryView.classList.add('hidden');
   greeting.classList.remove('hidden');
   homeView.classList.remove('hidden');
-  mainSearchBar.classList.remove('hidden')
+  mainSearchBar.classList.remove('hidden');
   favoritedSearchBar.classList.add('hidden');
   renderAllRecipes(recipeData);
-}
+};
 
 function showPantry() {
   savedRecipesGrid.classList.add('hidden');
   singleRecipe.classList.add('hidden');
   homeView.classList.add('hidden');
   favoritedSearchBar.classList.add('hidden');
-  mainSearchBar.classList.remove('hidden')
+  mainSearchBar.classList.remove('hidden');
   pantryView.classList.remove('hidden');
-  renderPantry()
-}
+  renderPantry();
+};
 
 export { modifyUserData };

@@ -1,7 +1,3 @@
-import Ingredient from "./Ingredient";
-//import { modifyUserData } from '../scripts';
-
-
 class User {
     constructor(user) {
         this.name = user.name;
@@ -68,7 +64,7 @@ class User {
         let pantryStatus = [];
         let pantryIdsArray = this.pantry.reduce((acc, ing) => {
             acc.push(ing.ingredient);
-            return acc;
+            return acc
         }, []);
         recipe.ingredients.forEach(rIng => {
             if(!pantryIdsArray.includes(rIng.id)) {
@@ -103,7 +99,7 @@ class User {
                 } ;
             });
         });
-        return pantryStatus;
+        return pantryStatus
     };
 
     cookRecipe(recipe) {
@@ -117,4 +113,4 @@ class User {
     };
 };
 
-export default User
+export default User;
