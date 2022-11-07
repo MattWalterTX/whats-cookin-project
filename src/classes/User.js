@@ -16,23 +16,23 @@ class User {
 
     filterByTag = (tag) => {
         const filteredList = this.recipesToCook.filter(recipe => {
-          let tags = Object.values(recipe.tags);
-          if (tags.includes(tag.toLowerCase())) {
+            let tags = Object.values(recipe.tags);
+            if (tags.includes(tag.toLowerCase())) {
             return recipe
-          };
+            };
         });
         return filteredList
-      };
+    };
 
     filterByName = (name) => {
         const filteredList = this.recipesToCook.filter(recipe => {
-          let lowerCaseRecipeName = recipe.name.toLowerCase();
-          if(name !== ' ' && lowerCaseRecipeName.includes(name.toLowerCase())) {
+            let lowerCaseRecipeName = recipe.name.toLowerCase();
+            if(name !== ' ' && lowerCaseRecipeName.includes(name.toLowerCase())) {
             return recipe
-          };
+            };
         });
         return filteredList
-      };
+        };
 
     updatePantry(recipe) {
         const pantryStatus = this.checkPantry(recipe);
@@ -54,29 +54,28 @@ class User {
     };
 
     addToPantry(recipe) {
-        const pantryStatus = this.checkPantry(recipe)
+        const pantryStatus = this.checkPantry(recipe);
         const forPostRequest = pantryStatus.filter(userIng => {
             if (userIng.stockStatus !== 'sufficient') {
                 return userIng
-            }
+            };
         })
         .map(userIng => {
                 return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.recipeQ - userIng.pantryQ)}
-        })
+        });
         return forPostRequest
     }
 
     removeFromPantry(recipe) {
-        const pantryStatus = this.checkPantry(recipe)
+        const pantryStatus = this.checkPantry(recipe);
         const forPostRequest = pantryStatus.filter(userIng => {
             if (userIng.stockStatus === 'sufficient') {
                 return userIng
-            }
+            };
         })
         .map(userIng => {
                 return {userID: this.id, ingredientID: userIng.id, ingredientModification: (userIng.pantryQ - userIng.recipeQ)}
-        })
-        console.log(forPostRequest)
+        });
         return forPostRequest
     };
 
@@ -84,7 +83,7 @@ class User {
         let pantryStatus = [];
         let pantryIdsArray = this.pantry.reduce((acc, ing) => {
             acc.push(ing.ingredient);
-            return acc;
+            return acc
         }, []);
         recipe.ingredients.forEach(rIng => {
             if(!pantryIdsArray.includes(rIng.id)) {
@@ -116,7 +115,7 @@ class User {
                         obj['unit'] = rIng.quantity.unit;
                         pantryStatus.push(obj);
                     };
-                } ;
+                };
             });
         });
         return pantryStatus;
