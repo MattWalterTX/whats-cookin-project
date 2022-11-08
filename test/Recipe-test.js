@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
 
 describe('Recipe', () => {
-    let recipe1
+    let recipe1;
     const recipeData = [
         {
           "id": 595736,
@@ -349,6 +349,7 @@ describe('Recipe', () => {
     });
 
     it('should return the instructions', () => {
-        expect(recipe1.returnInstructions()).to.deep.equal(steps)
+        expect(recipe1.returnInstructions()).to.deep.equal(steps);
     });
+
 });

@@ -6,4 +6,4 @@ class Ingredient {
   };
 };
 
-export default Ingredient
+export default Ingredient;
