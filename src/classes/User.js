@@ -101,7 +101,7 @@ class User {
                 } ;
             });
         });
-        return pantryStatus;
+        return pantryStatus
     };
 };
 

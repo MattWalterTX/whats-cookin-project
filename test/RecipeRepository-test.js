@@ -54,4 +54,4 @@ describe('RecipeRepository', () => {
     expect(recipeRepo.filterByName(' ')).to.deep.equal([]);
   });
 
-})
+});

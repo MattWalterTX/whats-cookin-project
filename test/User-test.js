@@ -84,7 +84,7 @@ describe('User', () => {
       { "amount": 4, "ingredient": 11297 }, { "amount": 10, "ingredient": 1082047 }, { "amount": 5, "ingredient": 20081 }, { "amount": 5, "ingredient": 11215 }, { "amount": 6, "ingredient": 2047 }, { "amount": 8, "ingredient": 1123 }, { "amount": 4, "ingredient": 11282 }, { "amount": 2, "ingredient": 6172 }, { "amount": 2, "ingredient": 2044 }, { "amount": 4, "ingredient": 2050 },
       { "amount": 3, "ingredient": 1032009 }, { "amount": 3, "ingredient": 5114 }, { "amount": 2, "ingredient": 1017 }, { "amount": 7, "ingredient": 18371 }, { "amount": 6, "ingredient": 1001 }, { "amount": 2, "ingredient": 99223 }, { "amount": 2, "ingredient": 1230 }, { "amount": 4, "ingredient": 9152 }, { "amount": 2, "ingredient": 10611282 }, { "amount": 2, "ingredient": 93607 }, 
       { "amount": 4, "ingredient": 14106 }, { "amount": 4, "ingredient": 1077 }, { "amount": 2, "ingredient": 6150 }, { "amount": 2, "ingredient": 1124 }, { "amount": 4, "ingredient": 10011693 }, { "amount": 2, "ingredient": 1102047 }, { "amount": 3, "ingredient": 19206 }, { "amount": 4, "ingredient": 1145 }, { "amount": 4, "ingredient": 1002030 }, { "amount": 2, "ingredient": 12061 },
-      { "amount": 4, "ingredient": 19335 }, { "amount": 3, "ingredient": 15152 }, { "amount": 2, "ingredient": 9003 }, { "amount": 3, "ingredient": 18372 }, { "amount": 2, "ingredient": 2027 }, { "amount": 0.5, "ingredient": 19334 }, { "amount": 24, "ingredient": 1012047 },{ "amount": 2, "ingredient": 10019903 }, 
+      { "amount": 4, "ingredient": 19335 }, { "amount": 3, "ingredient": 15152 }, { "amount": 2, "ingredient": 9003 }, { "amount": 3, "ingredient": 18372 }, { "amount": 2, "ingredient": 2027 }, { "amount": 0.5, "ingredient": 19334 }, { "amount": 24, "ingredient": 1012047 },{ "amount": 2, "ingredient": 10019903 }
     ]);
   });
 
@@ -94,7 +94,7 @@ describe('User', () => {
       { "amount": 4, "ingredient": 11297 }, { "amount": 10, "ingredient": 1082047 }, { "amount": 5, "ingredient": 20081 }, { "amount": 5, "ingredient": 11215 }, { "amount": 6, "ingredient": 2047 }, { "amount": 8, "ingredient": 1123 }, { "amount": 4, "ingredient": 11282 }, { "amount": 2, "ingredient": 6172 }, { "amount": 2, "ingredient": 2044 }, { "amount": 4, "ingredient": 2050 },
       { "amount": 3, "ingredient": 1032009 }, { "amount": 3, "ingredient": 5114 }, { "amount": 2, "ingredient": 1017 }, { "amount": 7, "ingredient": 18371 }, { "amount": 6, "ingredient": 1001 }, { "amount": 2, "ingredient": 99223 }, { "amount": 2, "ingredient": 1230 }, { "amount": 4, "ingredient": 9152 }, { "amount": 2, "ingredient": 10611282 }, { "amount": 2, "ingredient": 93607 }, 
       { "amount": 4, "ingredient": 14106 }, { "amount": 4, "ingredient": 1077 }, { "amount": 2, "ingredient": 6150 }, { "amount": 2, "ingredient": 1124 }, { "amount": 4, "ingredient": 10011693 }, { "amount": 2, "ingredient": 1102047 }, { "amount": 3, "ingredient": 19206 }, { "amount": 4, "ingredient": 1145 }, { "amount": 4, "ingredient": 1002030 }, { "amount": 2, "ingredient": 12061 },
-      { "amount": 4, "ingredient": 19335 }, { "amount": 3, "ingredient": 15152 }, { "amount": 2, "ingredient": 9003 }, { "amount": 3, "ingredient": 18372 }, { "amount": 2, "ingredient": 2027 }, { "amount": 0.5, "ingredient": 19334 }, { "amount": 24, "ingredient": 1012047 },{ "amount": 2, "ingredient": 10019903 }, 
+      { "amount": 4, "ingredient": 19335 }, { "amount": 3, "ingredient": 15152 }, { "amount": 2, "ingredient": 9003 }, { "amount": 3, "ingredient": 18372 }, { "amount": 2, "ingredient": 2027 }, { "amount": 0.5, "ingredient": 19334 }, { "amount": 24, "ingredient": 1012047 },{ "amount": 2, "ingredient": 10019903 }
     ]);
   });
 
@@ -103,7 +103,7 @@ describe('User', () => {
       { "amount": 4, "ingredient": 11297 }, { "amount": 10, "ingredient": 1082047 }, { "amount": 5, "ingredient": 20081 }, { "amount": 5, "ingredient": 11215 }, { "amount": 6, "ingredient": 2047 }, { "amount": 8, "ingredient": 1123 }, { "amount": 4, "ingredient": 11282 }, { "amount": 2, "ingredient": 6172 }, { "amount": 2, "ingredient": 2044 }, { "amount": 4, "ingredient": 2050 },
       { "amount": 3, "ingredient": 1032009 }, { "amount": 3, "ingredient": 5114 }, { "amount": 2, "ingredient": 1017 }, { "amount": 7, "ingredient": 18371 }, { "amount": 6, "ingredient": 1001 }, { "amount": 2, "ingredient": 99223 }, { "amount": 2, "ingredient": 1230 }, { "amount": 4, "ingredient": 9152 }, { "amount": 2, "ingredient": 10611282 }, { "amount": 2, "ingredient": 93607 }, 
       { "amount": 4, "ingredient": 14106 }, { "amount": 4, "ingredient": 1077 }, { "amount": 2, "ingredient": 6150 }, { "amount": 2, "ingredient": 1124 }, { "amount": 4, "ingredient": 10011693 }, { "amount": 2, "ingredient": 1102047 }, { "amount": 3, "ingredient": 19206 }, { "amount": 4, "ingredient": 1145 }, { "amount": 4, "ingredient": 1002030 }, { "amount": 2, "ingredient": 12061 },
-      { "amount": 4, "ingredient": 19335 }, { "amount": 3, "ingredient": 15152 }, { "amount": 2, "ingredient": 9003 }, { "amount": 3, "ingredient": 18372 }, { "amount": 2, "ingredient": 2027 }, { "amount": 0.5, "ingredient": 19334 }, { "amount": 24, "ingredient": 1012047 },{ "amount": 2, "ingredient": 10019903 }, 
+      { "amount": 4, "ingredient": 19335 }, { "amount": 3, "ingredient": 15152 }, { "amount": 2, "ingredient": 9003 }, { "amount": 3, "ingredient": 18372 }, { "amount": 2, "ingredient": 2027 }, { "amount": 0.5, "ingredient": 19334 }, { "amount": 24, "ingredient": 1012047 },{ "amount": 2, "ingredient": 10019903 }
     ]);
     user1.removeFromPantry(recipe1);
     expect(user1.pantry).to.deep.equal(userData.usersData[0].pantry);
@@ -113,21 +113,5 @@ describe('User', () => {
     user1.removeFromPantry(recipe1);
     expect(user1.pantry).to.deep.equal(userData.usersData[0].pantry);
   });
-
-  it('should not be able to cook a recipe if there are enough ingredients', () => {
-    expect(user1.cookRecipe(recipe1)).to.equal(false);
-  });
-
-  it('should be able to cook a recipe if there are enough ingredients', () => {
-    user1.addToPantry(recipe1);
-    expect(user1.cookRecipe(recipe1)).to.equal(true);
-  });
-
-  it('should be able to determine the difference in ingredient amounts between the recipe and pantry', () => {
-    let pantry = user1.checkPantry(recipe1);
-    expect(user1.pantryMathing(pantry)).to.deep.equal([ 0.5, 1.5, 5, 2.5, 0, 0, 4.5, 0, 0, 2.5, 2.5 ]);
-    pantry = user1.checkPantry(recipe2);
-    expect(user1.pantryMathing(pantry)).to.deep.equal([ -1.5,  0, -1, -1, 4, -1, -0.25, -1, -24, -2, -1, -1 ]);
-  })
 
 });
