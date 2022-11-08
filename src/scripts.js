@@ -201,6 +201,8 @@ function searchFavoritedRecipes() {
 function showRecipe(event) {
   homeView.classList.add('hidden');
   savedRecipesView.classList.add('hidden');
+  mainSearchBar.classList.add('hidden');
+  favoritedSearchBar.classList.add('hidden');
   singleRecipe.classList.remove('hidden');
   window.scrollTo(0, 0);
 
@@ -341,7 +343,7 @@ function showPantry() {
   singleRecipe.classList.add('hidden');
   homeView.classList.add('hidden');
   favoritedSearchBar.classList.add('hidden');
-  mainSearchBar.classList.remove('hidden')
+  mainSearchBar.classList.add('hidden')
   pantryView.classList.remove('hidden');
   renderPantry();
 };
