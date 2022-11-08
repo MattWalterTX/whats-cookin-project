@@ -15,58 +15,40 @@
       </div>
       <nav>
         <button class="top-button" id="buttonOfHome">Home</button>
-        <button class="top-button" id="saved-button">Saved Recipes</button>
+        <button class="top-button" id="saved-button">Favorited Recipes</button>
         <button class="top-button" id="pantry-button">Your Pantry</button>
         <input class="main-search-bar" type="text" placeholder="Search...">
         <input class="favorited-search-bar hidden" type="text" placeholder="Search Favorite Recipes...">
       </nav>
-    </h1>
     </header>
     <main>
-      <section class='view home-view'>
-        <section class='home-container'>
-          <div class='greeting-area'>
+      <section class="view home-view">
+        <section class="home-container">
+          <div class="greeting-area">
             <h1 class="greeting" id="greeting">Welcome to What's Cookin'!</h1>
           </div>
-          <section class="all-recipe-grid">
             <div class="recipe-header-container">
               <h2 class="all-recipes-header">All Recipes:</h2>
             </div>
-            <ul id="all-card-grid">
+            <ul class="card-grid" id="all-card-grid">
             </ul>
             <br>
-          </section>
         </section>
       </section>
-      <section class='view save-view hidden'>
-        <section class='saved-container'>
-          <div class='saved-title-area'>
-            <!-- <h1 class="saved-title">Saved Recipes</h1> -->
+      <section class="view save-view hidden">
+        <section class="saved-container">
+          <div class="saved-title-area">
           </div>
-          <section class="saved-recipe-grid">
             <div class="saved-recipe-header-container">
-              <h2 class="saved-recipes-header">Saved Recipes:</h2>
+              <h2 class="saved-recipes-header">Favorited Recipes:</h2>
             </div>
-            <ul id="fave-card-grid">
+            <ul class="card-grid" id="fave-card-grid">
             </ul>
             <br>
-          </section>
         </section>
       </section>
       <section class="single-recipe hidden">
-        <img></img>
-        <h2 class="single-recipe-name"></h2>
         <button class="favorite-button">Add to Favorites</button>
-        <section class="single-recipe-contents">
-          <section>
-            <div>Ingredients List</div>
-            <div>Total Cost</div>
-          </section>
-          <section>
-            <div>Instructions</div>
-            <ol></ol>
-          </section>
-        </section>
       </section>
       <section class="pantry-view hidden">
         <div>These are the Ingredients you have in your Pantry:</div>

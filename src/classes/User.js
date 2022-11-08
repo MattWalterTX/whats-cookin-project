@@ -1,3 +1,5 @@
+import Ingredient from "./Ingredient";
+
 class User {
     constructor(user) {
         this.name = user.name;
@@ -64,7 +66,7 @@ class User {
         let pantryStatus = [];
         let pantryIdsArray = this.pantry.reduce((acc, ing) => {
             acc.push(ing.ingredient);
-            return acc
+            return acc;
         }, []);
         recipe.ingredients.forEach(rIng => {
             if(!pantryIdsArray.includes(rIng.id)) {
@@ -99,18 +101,8 @@ class User {
                 } ;
             });
         });
-        return pantryStatus
-    };
-
-    cookRecipe(recipe) {
-        const pantry = this.checkPantry(recipe);
-        const mathTotals = this.pantryMathing(pantry);
-        if (mathTotals.every(total => total >= 0)) {
-            return true
-        } else {
-            return false
-        };
+        return pantryStatus;
     };
 };
 
-export default User;
+export default User

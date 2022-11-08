@@ -1,26 +1,27 @@
 class RecipeRepository {
   constructor(recipes) {
     this.recipes = recipes;
-  }
+  };
 
   filterByTag = (tag) => {
     const filteredList = this.recipes.filter(recipe => {
       let tags = Object.values(recipe.tags);
       if (tags.includes(tag.toLowerCase())) {
-        return recipe
+        return recipe;
       };
     });
-    return filteredList
+    return filteredList;
   };
   
   filterByName = (name) => {
     const filteredList = this.recipes.filter(recipe => {
-      let lowerCaseRecipeName = recipe.name.toLowerCase();
+      let lowerCaseRecipeName = recipe.name.toLowerCase()
       if(name !== ' ' && lowerCaseRecipeName.includes(name.toLowerCase())) {
-        return recipe
+        return recipe;
       };
     });
-    return filteredList
+    return filteredList;
   };
 };
-export default RecipeRepository;
+
+export default RecipeRepository
