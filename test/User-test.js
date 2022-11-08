@@ -114,20 +114,4 @@ describe('User', () => {
     expect(user1.pantry).to.deep.equal(userData.usersData[0].pantry);
   });
 
-  it('should not be able to cook a recipe if there are enough ingredients', () => {
-    expect(user1.cookRecipe(recipe1)).to.equal(false);
-  });
-
-  it('should be able to cook a recipe if there are enough ingredients', () => {
-    user1.addToPantry(recipe1);
-    expect(user1.cookRecipe(recipe1)).to.equal(true);
-  });
-
-  it('should be able to determine the difference in ingredient amounts between the recipe and pantry', () => {
-    let pantry = user1.checkPantry(recipe1);
-    expect(user1.pantryMathing(pantry)).to.deep.equal([ 0.5, 1.5, 5, 2.5, 0, 0, 4.5, 0, 0, 2.5, 2.5 ]);
-    pantry = user1.checkPantry(recipe2);
-    expect(user1.pantryMathing(pantry)).to.deep.equal([ -1.5,  0, -1, -1, 4, -1, -0.25, -1, -24, -2, -1, -1 ]);
-  });
-
 });

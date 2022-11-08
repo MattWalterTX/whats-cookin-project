@@ -101,16 +101,6 @@ class User {
         });
         return pantryStatus
     };
-
-    cookRecipe(recipe) {
-        const pantry = this.checkPantry(recipe);
-        const mathTotals = this.pantryMathing(pantry);
-        if (mathTotals.every(total => total >= 0)) {
-            return true
-        } else {
-            return false
-        };
-    };
 };
 
 export default User;
