@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whats Cookin</title>
-  </head>
-  <body>
-    <header>
-      <div class="title-area">
-        <img class='turing-logo' src="./images/turing-logo.png" alt="Turing Logo"> 
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+    rel="stylesheet">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whats Cookin</title>
+</head>
+
+<body>
+  <header>
+    <div class="title-area">
+      <img class='turing-logo' src="./images/turing-logo.png" alt="Turing Logo">
       <h1 class="site-title">What's Cookin'</h1>
-      </div>
-      <nav>
-        <button class="top-button" id="buttonOfHome">Home</button>
-        <button class="top-button" id="saved-button">Favorited Recipes</button>
-        <button class="top-button" id="pantry-button">Your Pantry</button>
-        <input class="main-search-bar" type="text" placeholder="Search...">
-        <input class="favorited-search-bar hidden" type="text" placeholder="Search Favorite Recipes...">
-      </nav>
-    </header>
-    <main>
-      <section class="view home-view">
-        <section class="home-container">
-          <div class="greeting-area">
-            <h1 class="greeting" id="greeting">Welcome to What's Cookin'!</h1>
-          </div>
-            <div class="recipe-header-container">
-              <h2 class="all-recipes-header">All Recipes:</h2>
-            </div>
-            <ul class="card-grid" id="all-card-grid">
-            </ul>
-            <br>
-        </section>
+    </div>
+    <nav>
+      <button class="top-button" id="buttonOfHome">Home</button>
+      <button class="top-button" id="saved-button">Favorited Recipes</button>
+      <button class="top-button" id="pantry-button">Your Pantry</button>
+      <input class="main-search-bar" type="text" placeholder="Search...">
+      <input class="favorited-search-bar hidden" type="text" placeholder="Search Favorite Recipes...">
+    </nav>
+  </header>
+  <main>
+    <section class="view home-view">
+      <section class="home-container">
+        <div class="greeting-area">
+          <h1 class="greeting" id="greeting">Welcome to What's Cookin'!</h1>
+        </div>
+        <div class="recipe-header-container">
+          <h2 class="all-recipes-header">All Recipes:</h2>
+        </div>
+        <ul class="card-grid" id="all-card-grid">
+        </ul>
+        <br>
       </section>
-      <section class="view save-view hidden">
-        <section class="saved-container">
-          <section class="saved-recipe-grid">
-            <div class="saved-recipe-header-container">
-              <h2 class="saved-recipes-header">Favorited Recipes:</h2>
-            </div>
-            <ul class="card-grid" id="fave-card-grid">
-            </ul>
-            <br>
-        </section>
+    </section>
+    <section class="view save-view hidden">
+      <section class="saved-container">
+        <div class="saved-recipe-header-container">
+          <h2 class="saved-recipes-header">Favorited Recipes:</h2>
+        </div>
+        <ul class="card-grid" id="fave-card-grid">
+        </ul>
+        <br>
       </section>
-      <section class="single-recipe hidden">
-        <button class="favorite-button">Add to Favorites</button>
-      </section>
-      <section class="pantry-view hidden">
-        <div>These are the Ingredients you have in your Pantry:</div>
-        <ul id="pantry-list"></ul>
-      </section>
-    </main>
-  </body>
-  <script src="bundle.js"></script>
+    </section>
+    <section class="single-recipe hidden">
+      <button class="favorite-button">Add to Favorites</button>
+    </section>
+    <section class="pantry-view hidden">
+      <div>These are the Ingredients you have in your Pantry:</div>
+      <ul id="pantry-list"></ul>
+    </section>
+  </main>
+</body>
+<script src="bundle.js"></script>
+
 </html>
